@@ -45,10 +45,6 @@ export default {
     ],
     script: [
       {
-        src: `https://www.bugherd.com/sidebarv2.js?apikey=${process.env.BUGHERD_KEY}`,
-        async: 'true',
-      },
-      {
         // Google Places Api
         src: `https://maps.googleapis.com/maps/api/js?key=${process.env.G_PLACES_API_KEY}&libraries=places`,
       },
@@ -72,7 +68,7 @@ export default {
     '~/assets/css/utilities.css',
     '~/assets/css/plugin.css',
     '~/assets/css/vendor.css',
-    '~/assets/css/vuedropzone.css',
+    // '~/assets/css/vuedropzone.css',
     '~/assets/css/dev.vendor.css',
     '~/assets/css/v-tooltip.css',
   ],
@@ -82,19 +78,15 @@ export default {
     { src: '~/plugins/vuelidate.js' },
     { src: '~/plugins/helper.js' },
     { src: '~/plugins/axios.js', ssr: true },
-    { src: '~/plugins/vue-dropzone.js' },
+    // { src: '~/plugins/vue-dropzone.js' },
     { src: '~/plugins/infinity-loading.js' },
     { src: '~/plugins/vue-tooltip.js' },
     { src: '~/plugins/vue-clipboard.js' },
     { src: '~/plugins/vue-async-computed.js' },
-    { src: '~/plugins/vue-audio-visual.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-infinite-scroll.js', mode: 'client', ssr: false },
-    { src: '~/plugins/vue2-editor.js', mode: 'client', ssr: false },
     { src: '~/plugins/bus' },
     { src: '~/plugins/overlay-loader.js' },
     { src: '~/plugins/h-chart.js', ssr: false },
-    { src: '~/plugins/read-more.js', ssr: false },
-    { src: '~/plugins/primevue.js', ssr: false },
     { src: '~/plugins/vue-tour.js', ssr: false },
   ],
   watchers: {
@@ -103,7 +95,7 @@ export default {
     },
   },
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: ['~/components/svg/', '~/components/lead/Icons/'],
+  components: ['~/components/svg/'],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -122,6 +114,17 @@ export default {
         connectOnLogin: true,
         disconnectOnLogout: true,
         authEndpoint: process.env.PUSHER_AUTH_ENDPOINT,
+
+        // wsHost: process.env.WEBSOCKET_HOST,
+        // wsPort: process.env.WEBSOCKET_PORT,
+        // encrypted: true,
+        // disableStats: true,
+
+        // Laravel websocket settings
+        /* wsHost: '127.0.0.1',
+      wsPort: 6001,
+      forceTLS: false,
+      disableStats: true, */
       },
     ],
     'vue-browser-detect-plugin/nuxt',
@@ -134,7 +137,7 @@ export default {
     'nuxt-client-init-module',
     'portal-vue/nuxt',
     'nuxt-socket-io',
-    'primevue/nuxt',
+    // 'primevue/nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -158,6 +161,14 @@ export default {
     theme: 'toasted-primary', // toasted-primary, outline, bubble
     duration: '5000',
     iconPack: 'fontawesome',
+    /* action: [
+      {
+        text: 'close',
+        onClick: (e, toastObject) => {
+          toastObject.goAway(0);
+        }
+      }
+    ], */
     register: [
       {
         name: 'success',
@@ -237,7 +248,6 @@ export default {
     redirectSSL.create({
       enabled: process.env.NODE_ENV === 'production',
     }),
-    { path: '/api', handler: '~/api/index.js' },
     { path: '/driveapi', handler: '~/api/drive-api.js' },
     { path: '/s3', handler: '~/api/s3.js' },
     { path: '/box', handler: '~/api/box.js' },
@@ -258,7 +268,6 @@ export default {
     damBaseUrl: process.env.DAM_FRONTEND_URL,
     userPlaceHolderImg: process.env.USER_PLACEHOLDER_IMG,
     googleAuthUrl: process.env.GOOGLE_AUTH_URL,
-    dawnUserId: process.env.DAWN_USER_ID,
   },
   env: {
     BASE_URL: process.env.BASE_URL,
