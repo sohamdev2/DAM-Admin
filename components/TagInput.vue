@@ -67,12 +67,9 @@ export default {
         event.preventDefault()
         const value = event.target.value
         if (value !== '' && /\S/.test(value)) {
-          // getting the index if there is already a matching tag
           const index = this.tags.findIndex((e) => e === value)
           if (~index) {
-            // selecting the tag using the index
             const tag = window.$('.added-tag')[index]
-            // performing fadein blink effect to highlight tag is already there
             window.$(tag).hide().fadeIn()
             event.target.value = ''
             return

@@ -158,11 +158,9 @@ export default {
     },
   },
   methods: {
-    // disable collection
     collectionListDisable(collectionAssetsId) {
       return collectionAssetsId.includes(this.file.id)
     },
-    // save collection
     async saveCollection(id) {
       if (this.saving) return
       this.saving = 1
@@ -187,11 +185,9 @@ export default {
         })
         .finally(() => (this.saving = 0))
     },
-    // toggle between choose and save dialog
     saveToCollection(selectionType) {
       this.chooseCollection = !this.chooseCollection
     },
-    // add and save asset in collection
     async addCollection() {
       if (this.loading) return
 

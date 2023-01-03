@@ -61,9 +61,6 @@ export default {
     return {
       fp: null,
       defaultDateColor: '#393939',
-      // previousDateColor: '#dc3545',
-      // sameOrNextDateColor: '#28a745',
-
       previousDateColor: '#ff0000',
       sameOrNextDateColor: '#008000',
 

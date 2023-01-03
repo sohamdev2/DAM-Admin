@@ -538,19 +538,6 @@ export default {
       intialCount: this.assetCount || '12',
       sortingModel: this.sorting || 'Sort by',
       loader: { restoring: false, deleting: false },
-      // sortingOptions: this.trashMode
-      //   ? [
-      //       { text: 'Name', id: 'display_file_name' },
-      //       { text: 'Trash date', id: 'updated_at' },
-      //       { text: 'Size', id: 'file_size' },
-      //       { text: 'Type', id: 'file_type' },
-      //     ]
-      //   : [
-      //       { text: 'Name', id: 'display_file_name' },
-      //       { text: 'Date', id: 'updated_at' },
-      //       { text: 'Size', id: 'file_size' },
-      //       { text: 'Type', id: 'file_type' },
-      //     ],
       assetCountOptions: [
         { text: '12', id: '12' },
         { text: '20', id: '20' },
@@ -792,10 +779,6 @@ export default {
           ]
           break
         default:
-          // toEmit = [
-          //   ["subFolders", "id", this.$sortToTypedNumber],
-          //   ["files", "id", this.$sortToTypedNumber]
-          // ];
           break
       }
       this.sortingModel = value

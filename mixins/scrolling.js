@@ -36,12 +36,6 @@ export default {
     tabActive(tab) {
       $('.common-tabs .nav-item').removeClass('active')
       $('.active_' + tab).addClass('active')
-      /* const activeWidth1 = $('.active_' + tab).innerWidth()
-      const itemPos = $('.active_' + tab).position()
-      $('.selector').css({
-        left: itemPos.left + 'px',
-        width: activeWidth1 + 'px',
-      }) */
       this.totalDraftComment()
     },
     async totalDraftComment() {

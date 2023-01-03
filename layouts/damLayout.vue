@@ -893,7 +893,6 @@ export default {
         const searchParams = new URLSearchParams(window.location.search)
         const intent = searchParams.get('setup_intent')
         const clientSecret = searchParams.get('setup_intent_client_secret')
-        // if (intent && clientSecret) this.$refs.managePayment.click()
         if (!(clientSecret && intent && this.stripe)) {
           const query = { ...this.$route.query }
           delete query.clientSecret
@@ -992,7 +991,6 @@ export default {
     },
     async addCardDialog() {
       if (this.showAddCard) return
-      // this.$axios.$post('digital-assets/subscription/add-card')
       // https://stripe.com/docs/payments/save-and-reuse?platform=web
       // https://github.com/stripe-samples/saving-card-without-payment
       const { data } = await axios.post('/stripe/init-setup-intent', {
@@ -1138,7 +1136,6 @@ export default {
 <style>
 .v-tour.custom > .v-step {
   background: #445ea7 !important;
-  /* text-align: left; */
 }
 .v-tour.custom .v-step--inner {
   text-align: left !important;

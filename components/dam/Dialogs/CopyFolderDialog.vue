@@ -155,7 +155,6 @@
 </template>
 
 <script>
-// import { required } from 'vuelidate/lib/validators'
 import Model from '~/components/plugins/Model'
 import FolderList from '~/components/dam/FolderList'
 

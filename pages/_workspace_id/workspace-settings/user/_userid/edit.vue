@@ -718,8 +718,6 @@ export default {
         email: null,
         phone: null,
         title: null,
-        /*  capacity_hour: null,
-        salary: null,  */
         role: null,
         allowedWorkspace: [],
         user_id: this.$route.params.userid ? this.$route.params.userid : null,

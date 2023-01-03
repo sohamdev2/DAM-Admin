@@ -384,57 +384,6 @@ export default {
     ShareAssetsPasswordProtected,
   },
   mixins: [assetSorting, fileSelection],
-  /* asyncData({
-    params,
-    query,
-    $axios,
-    redirect,
-    error,
-    $getErrorMessage,
-  }) {
-    return $axios
-      .$post(`show-share-assets`, {
-        type: params.type,
-        status: query.status,
-        access_token: null,
-      })
-      .then(({ data }) => {
-        console.log(data)
-        const passwordRequired = data.password_required
-        const sharedTitle = data.title
-        const sharedDescription = data.description
-        const lastModifiedDate = data.updated_at
-        const shareLinkHideDownload = !!data.hide_download
-        const brandLogo = data.brand_logo
-        if (!data.category?.length && !data.assets?.length && !passwordRequired)
-          return error({
-            status: 404,
-            message: "The assets are gone or doesn't exists",
-          })
-
-        const subFolders = makeFolder(data.category || [])
-        const files = data.assets || []
-        const shareId = data.share_id
-        const workspaceId = data.workspace_id
-
-        return {
-          shareId,
-          subFolders,
-          files,
-          stack: [{ subFolders, files }],
-          workspaceId,
-          passwordRequired,
-          sharedTitle,
-          sharedDescription,
-          lastModifiedDate,
-          shareLinkHideDownload,
-          brandLogo,
-        }
-      })
-      .catch((e) => {
-        error({ status: 404, message: $getErrorMessage(e) })
-      })
-  }, */
   data() {
     return {
       mode: 'list',
@@ -485,9 +434,6 @@ export default {
     },
     selectedAll() {
       const length = this.files.length + this.subFolders.length
-      /* return this.currentFolder
-        ? !!length && this.selectedCount === length
-        : false */
       return !!length && this.selectedCount === length
     },
     allAssetsCount() {
@@ -560,18 +506,9 @@ export default {
         },
       })
   },
-  beforeDestroy() {
-    // window.removeEventListener('beforeunload', localData, false)
-  },
   methods: {
     async prevStack() {
       this.selectNone()
-      /* if (this.stack?.length > 1) this.stack.pop()
-
-      const { subFolders, files } = this.stack[this.stack?.length - 1]
-
-      this.subFolders = subFolders
-      this.files = files */
       if (this.$route.query.file) {
         await this.sharedFilesList(atob(String(this.$route.query.file)))
       } else {
@@ -661,10 +598,6 @@ export default {
             !data.assets?.length &&
             !this.passwordRequired
           )
-            /*  return this.$toast.global.error({
-              status: 404,
-              message: "The assets are gone or doesn't exists",
-            })  */
             this.$nuxt.error({
               statusCode: 404,
               path: this.$route.path,

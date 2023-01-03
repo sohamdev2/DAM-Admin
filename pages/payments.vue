@@ -80,8 +80,6 @@ export default {
       paymentErrorMsg: '',
     }
   },
-  // layout: 'outerLayout',
-  // middleware: ['guestCheck'],
   async mounted() {
     stripe = await loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
     this.createPaymentIntent()

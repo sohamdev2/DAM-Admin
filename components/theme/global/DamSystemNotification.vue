@@ -715,8 +715,6 @@ export default {
       enableBellClick: true,
       badgesCount: this.$auth.user.dam_badges_count,
       showOnlyUnreadNotifications: false,
-
-      /* Announcement data vars */
       initialLoading_: false,
       loadMoreLoading_: false,
       page_: 1,
@@ -786,7 +784,6 @@ export default {
         count_: this.badgesCount > 9 ? `9+` : `${this.badgesCount}`,
       }
     },
-    /* Announcements Computed Properties */
     announcementComputed() {
       if (this.showOnlyUnreadAnnouncements) {
         return this.announcements.filter(({ read_at }) => read_at === null)
@@ -816,7 +813,6 @@ export default {
         this.badgesCount = this.damSystemNotificationAllowed
           ? dam_badges_count
           : 0
-        // this.closeList()
       })
 
     this.$echo
@@ -837,9 +833,6 @@ export default {
               event_status: true,
             })
             .catch(console.log)
-            .finally(() => {
-              // location.reload(true)
-            })
         }
       })
     this.loadJQ()
@@ -914,8 +907,6 @@ export default {
           this.page = 1
           this.lastPage = 1
           this.showOnlyUnreadNotifications = false
-
-          /* Announcement reset vars */
           this.initialLoading_ = false
           this.announcements = []
           this.showLast30DaysMsg_ = false
@@ -1040,8 +1031,6 @@ export default {
     onClickOutsideOfList() {
       this.closeList()
     },
-
-    /* Announcements methods */
     async initialLoadAnnouncements() {
       try {
         this.initialLoading_ = true
@@ -1088,7 +1077,7 @@ export default {
         this.$toast.error(this.$getErrorMessage(e))
       }
     },
-    async readAnnouncement(aId) {
+    readAnnouncement(aId) {
       const findIndex = this.announcements.findIndex(
         ({ id }) => parseInt(id) === parseInt(aId)
       )
@@ -1100,19 +1089,17 @@ export default {
           this.unreadAnnouncements = currentCount - 1
 
           try {
-            const { data } = await this.$axios.$post(`announcement/read`, {
+            this.$axios.$post(`announcement/read`, {
               notification_id: aId,
               module_id: 2,
             })
-            // this.unreadNotifications = data.total_unread_notification
-            console.log(data)
           } catch (e) {
             this.$toast.error(this.$getErrorMessage(e))
           }
         }
       }
     },
-    async readUnreadAnnouncement(aId) {
+    readUnreadAnnouncement(aId) {
       const findIndex = this.announcements.findIndex(
         ({ id }) => parseInt(id) === parseInt(aId)
       )
@@ -1125,24 +1112,21 @@ export default {
           : currentCount + 1
       }
       try {
-        const { data } = await this.$axios.$post(`announcement/read-unread`, {
+        this.$axios.$post(`announcement/read-unread`, {
           notification_id: aId,
           module_id: 2,
         })
-        // this.unreadNotifications = data.total_unread_notification
-        console.log(data)
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
       }
     },
-    async readAllAnnouncements() {
+    readAllAnnouncements() {
       this.announcements = this.announcements.map((data) => {
         return { ...data, read_at: 'read' }
       })
       this.unreadAnnouncements = 0
       try {
-        await this.$axios.$post(`announcement/mark-all-read?module_id=2`)
-        // this.unreadNotifications = data.total_unread_notification
+        this.$axios.$post(`announcement/mark-all-read?module_id=2`)
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
       }
@@ -1150,7 +1134,6 @@ export default {
     announcementClicked(anno) {
       this.clickedAnnouncementDetail = anno
       this.readAnnouncement(anno.id)
-      // this.closeList()
     },
     htmlToText(string) {
       return string.replace(/<[^>]+>/g, '')

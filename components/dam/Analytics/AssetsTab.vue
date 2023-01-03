@@ -617,7 +617,6 @@ const groupBycategories = [
   { text: 'Documents', id: 'document' },
   { text: 'Images', id: 'image' },
   { text: 'Videos', id: 'video' },
-  /*  { text: 'Trash', id: 'trash' },  */
   { text: 'Uncategorized', id: 'uncategorized' },
   { text: 'Archive', id: 'archive' },
 ]
@@ -777,7 +776,6 @@ export default {
     },
   },
   created() {
-    // this.graphInit({ month: true })
     this.getGraphData(
       this.$moment(this.graph.dates.startDate).format(this.SAVE_DATE_FORMAT),
       this.$moment(this.graph.dates.endDate).format(this.SAVE_DATE_FORMAT)
@@ -988,8 +986,6 @@ export default {
       if (data.text === 'Custom Date') {
         this.customStartDate = this.graph.dates.startDate
         this.customEndDate = this.graph.dates.endDate
-        // this.start_date = this.$moment();
-        // this.end_date = this.$moment().add(3, "day");
         this.showCustomDate = true
       }
       if (this.selectedTimeframeText !== 'Custom Date') {
@@ -1184,7 +1180,6 @@ export default {
       this.getGraphData(startDate, endDate)
     },
     async getGraphData(startDate, endDate) {
-      // if (this.graph.loading) return
       this.graph.loading = true
 
       if (this.selectedTimeframeText === 'All Time') {
@@ -1273,7 +1268,6 @@ export default {
             {
               stacked: true,
               ticks: {
-                // stepSize: 10,
                 precision: 0,
                 reverse: false,
                 beginAtZero: true,
@@ -1375,7 +1369,6 @@ export default {
             {
               stacked: true,
               ticks: {
-                // stepSize: 10,
                 precision: 0,
                 reverse: false,
                 beginAtZero: true,

@@ -17,9 +17,6 @@ export default {
     model: Boolean,
     containerCssClass: String,
     dropdownCssClass: String,
-
-    /* containerCssClass: 'multiple-xxxxxxxxx',
-          dropdownCssClass: 'multiple-yyyyyyyyyy', */
     disabled: {
       type: Boolean,
       default: false,
@@ -37,7 +34,6 @@ export default {
           multiple: true,
           data: this.options,
           placeholder: this.placeholder,
-          // allowClear: true,
           containerCssClass: this.containerCssClass,
           dropdownCssClass: this.dropdownCssClass,
         })
@@ -57,7 +53,6 @@ export default {
         multiple: true,
         data: this.options,
         placeholder: this.placeholder,
-        // allowClear: true,
         containerCssClass: this.containerCssClass,
         dropdownCssClass: this.dropdownCssClass,
       })
@@ -65,12 +60,10 @@ export default {
       .trigger('change')
 
     initSelect2.on('select2:select select2:unselect', (e) => {
-      // const data = e.params.data
       this.model && this.$emit('input', initSelect2.val())
       if (this.customEvent) {
         this.$emit('changeFollower', initSelect2.val())
       }
-      // this.$emit("input", data.id);
     })
     initSelect2.prop('disabled', this.disabled)
   },

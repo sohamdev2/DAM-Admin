@@ -1164,7 +1164,6 @@ export default {
         this.changeSharePermission()
       }
     },
-    // permission change from dialog
     async changeSharePermission() {
       this.isAssetPrivacyUpdating = true
       await this.$axios

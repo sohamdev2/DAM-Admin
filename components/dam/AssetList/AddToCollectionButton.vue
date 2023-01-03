@@ -78,15 +78,12 @@ export default {
     }
   },
   computed: {
-    // collection list
     hasCollection() {
       return this.$store.state.dam.collectionList
     },
-    // inside collection route
     isCollection() {
       return this.$route.name.search('collection')
     },
-    // collection box and save button toggle
     inCollection() {
       const data = this.$store.state.dam.collectionList[0]
       const exists = data?.assets_id.includes(this.file.id)
@@ -98,7 +95,6 @@ export default {
     this.count = this.$store.state.dam.collectionList[0]?.assets_count
   },
   methods: {
-    // latest collection selected
     updatedAt(id) {
       this.$store.state.dam.collectionList.map((item, index) => {
         if (item.id === id) {
@@ -107,16 +103,13 @@ export default {
         return item
       })
     },
-    // toggle for first collection
     newCollectionToggle() {
       if (this.hasCollection?.length !== 0) {
         this.addToCollection()
       } else if (this.hasCollection?.length === 0) {
-        // this.$refs.saveCollectionDialog.show()
         this.$emit('saveCollection')
       }
     },
-    // toggle collection save button
     buttonChange(include, newCount) {
       this.flag = 0
       if (include) {
@@ -125,7 +118,6 @@ export default {
         this.flag--
       }
     },
-    // add to collection
     async addToCollection() {
       if (this.adding) return
       this.adding = 1

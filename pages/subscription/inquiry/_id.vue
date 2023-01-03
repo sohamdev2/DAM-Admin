@@ -158,17 +158,7 @@ export default {
       inquiryId: null,
     }
   },
-  mounted() {
-    // this.$nextTick(() => {
-    //   this.$axios
-    //     .$post(`subscription/inquiry/${this.inquiryId}/detail`)
-    //     .then(({ data }) => (this.inquiryInfo = data))
-    //     .catch((e) => {
-    //       debugger
-    //       this.$toast.global.error(this.$getErrorMessage(e))
-    //     })
-    // })
-  },
+  mounted() {},
   methods: {},
 }
 </script>

@@ -120,11 +120,9 @@
 </template>
 
 <script>
-// import $ from 'jquery'
-
 export default {
   props: {
-    workspaceName: { type: String },
+    workspaceName: { type: String, default: '' },
   },
   mounted() {
     const vue = this

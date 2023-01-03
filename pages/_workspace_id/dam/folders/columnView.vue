@@ -220,7 +220,6 @@ export default {
           return columns
         })
     },
-    // items = [{ file, oldColumnId, parents }]
     async onFilesCopied(items) {
       if (!items?.length) return
       const columnsToUpdate = []

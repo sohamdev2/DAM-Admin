@@ -586,7 +586,6 @@
 </template>
 
 <script>
-// import $ from 'jquery'
 import _ from 'lodash'
 import { SearchBus } from '~/buses/searchbus'
 
@@ -654,13 +653,6 @@ export default {
       true
     )
   },
-  // mounted() {
-  //   this.$refs.input.addEventListener(
-  //     'keydown',
-  //     (e) => e.keyCode === 9 && this.$nextTick(() => (this.active = false)),
-  //     true
-  //   )
-  // },
   methods: {
     removeProjectFilter() {
       this.$store.dispatch('project/projectserach/setProjectFilter', null)
@@ -790,7 +782,6 @@ export default {
           this.searchHistoryList = data
         }
       } catch (e) {
-        // const { data } = e.response
         this.loading = false
         this.recentActive = false
       }
@@ -819,8 +810,6 @@ export default {
               query: { q: this.search },
             })
           }
-          // this.searchResult = data || {};
-          // this.$nextTick(() => this.initJquery());
         })
         .catch((e) => {
           const { data } = e.response
@@ -832,10 +821,6 @@ export default {
               query: { q: this.search },
             })
           }
-        })
-        .finally(() => {
-          // this.pastedText = null;
-          // this.$nextTick(() => (this.loading = false));
         })
     },
     getUserImage(user) {
@@ -864,14 +849,12 @@ export default {
             : [],
         internal_workspace_id: 0,
         workspaceId: this.$allowedWorkspaces('slug').project.ids,
-        /* clientsOrNot: client.internal_client, */
         sub_client_id:
           type === 'SubClient'
             ? [
                 {
                   client_id: client.user_id,
                   client_name: client.user_name,
-                  // clientsOrNot: client.internal_client,
                   id: client.user_id,
                   text: client.user_name,
                 },
@@ -894,7 +877,6 @@ export default {
         'project/projectserach/setProjectFilter',
         projectListFilterData
       )
-      // this.$root.$emit('access-client', projectListFilterData)
       SearchBus.$emit('access-client', projectListFilterData)
       return this.$router.push({
         name: 'workspace_id-project-all-project-list',

@@ -1166,17 +1166,14 @@ export default {
       $(document).find('.invitation-dismiss').trigger('click')
     },
     changeLogo(event) {
-      // const oneMB = 7000
       const twoMB = 2097152
       if (event.target.files[0]) {
         if (!event.target.files[0].type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
           return
         }
         if (event.target.files[0].size < twoMB) {
           this.logo = event.target.files[0]
-          // this.logo_preview = null
           const input = event.target
           if (input.files && input.files[0]) {
             const reader = new FileReader()
@@ -1196,7 +1193,6 @@ export default {
       this.logo_preview = null
       this.uploadingLogo = true
       const formData = new FormData()
-      // formData.append('logo', this.logo)
       formData.append('workspace_id', this.internal_workspace_id)
       const { canvas } = this.$refs.vueCropper.getResult()
       if (!canvas) {
@@ -1219,12 +1215,10 @@ export default {
           this.$axios
             .post('change-workspace-logo', formData)
             .then(({ data }) => {
-              // if (this.$_auth().id === this.internal_workspace_id) {
               this.$store.dispatch('dam/setBranding', {
                 workspace_id: this.internal_workspace_id,
                 isSetFavicon: true,
               })
-              // }
               this.uploadingLogo = false
               this.logo_preview = data.data.display_logo
               this.$toast.global.success(
@@ -1247,12 +1241,10 @@ export default {
           '/change-workspace-favicon',
           formData
         )
-        // if (this.$_auth().id === this.internal_workspace_id) {
         this.$store.dispatch('dam/setBranding', {
           workspace_id: this.internal_workspace_id,
           isSetFavicon: true,
         })
-        // }
         this.$toast.global.success(
           message || `Workspace favicon updated successfully.`
         )
@@ -1264,21 +1256,17 @@ export default {
       const imageFile = file[0]
       if (file.length > 0) {
         if (!imageFile.type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
-        } // Max size of image is 5 MB
-        else if (imageFile.size > this.maxSize) {
+        } else if (imageFile.size > this.maxSize) {
           this.$toast.global.error(
             'Your file is too big! Please select an image under 2MB'
           )
         } else {
-          // Append file into FormData and turn file into image URL
           const img = new Image()
           img.src = URL.createObjectURL(imageFile)
           img.onload = () => {
             const width = img.naturalWidth
             const height = img.naturalHeight
-            // if (width <= 64 && height <= 64) {
             if (width === height) {
               this.faviconName = imageFile.name
               this.faviconIcon = img.src
@@ -1287,11 +1275,6 @@ export default {
             } else {
               this.$toast.global.error('Please upload a Square image.')
             }
-            /* else {
-              this.$toast.global.error(
-                'Maximum file dimension should be about 64 x 64.'
-              )
-            } */
           }
         }
       }
@@ -1320,12 +1303,10 @@ export default {
             is_branding: this.is_branding === true ? 1 : 0,
           }
         )
-        // if (this.$_auth().id === this.internal_workspace_id) {
         this.$store.dispatch('dam/setBranding', {
           workspace_id: this.internal_workspace_id,
           isSetFavicon: true,
         })
-        // }
         this.$toast.global.success(message)
         this.brandLoading = false
       } catch (e) {

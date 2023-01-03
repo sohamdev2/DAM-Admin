@@ -374,11 +374,6 @@ export default {
           if (data.country_data && data.country_data.length) {
             this.highlightChartOption.series[0].data = data.country_data.map(
               (e, i) => {
-                // return Object.entries(e).flat()
-                /* const data = [stateArray].map(([key, value]) => {
-                  return [key.toLowerCase(), value]
-                })
-                return data.flat() */
                 const stateArray = Object.entries(e).flat()
                 const data = [stateArray].map(([key, value]) => {
                   return [
@@ -424,11 +419,9 @@ export default {
           this.lastPage = data.last_page
 
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.collectionLocationBasedList.push(...data.data)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 $state.complete()
               } else {

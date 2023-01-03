@@ -492,13 +492,7 @@ export default {
           share_url_id: this.url.id,
         })
         .then(({ status, code, message }) => {
-          //  if (this.isFromUser) {
           this.$emit('revoked', this.url)
-
-          //  }
-          // Not required to check deleted at only validate using status
-          // if (data.deleted_at && data.is_active === 0) {
-          //   }
           if (code === 200 && status) {
             this.$emit('deleted', this.url.id)
           }

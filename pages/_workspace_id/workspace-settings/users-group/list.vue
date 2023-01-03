@@ -662,7 +662,6 @@ export default {
   },
   watch: {
     search_name() {
-      // const term = (this.search_name || '').trim()
       if (this.searchTimer) clearTimeout(this.searchTimer)
 
       this.searchTimer = setTimeout(() => {
@@ -695,7 +694,6 @@ export default {
           this.show_add_group_btn = data.show_add_group_btn
 
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.groupUsersList.push(...data.data)
               setTimeout(() => {
@@ -703,7 +701,6 @@ export default {
               }, 50)
               $state.loaded()
 
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()

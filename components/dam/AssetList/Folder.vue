@@ -1599,13 +1599,11 @@ export default {
     },
     onRenameClick() {
       this.renameActive = 1
-      // this.renaming = true
       this.$nextTick(() => {
         this.$refs.renameInput.click()
         this.$refs.renameInput.focus()
       })
     },
-    // rename folder
     async changeFileName(discard) {
       const fileName = this.getFileName
 
@@ -1617,7 +1615,6 @@ export default {
       }
       if (!(fileName || '').length) {
         this.getFileName = this.oldName
-        // this.$toast.global.error('Folder name is required.')
         this.renameActive = 0
         this.renaming = false
         return
@@ -1654,7 +1651,6 @@ export default {
       this.renaming = false
       this.renameActive = 0
     },
-    // dropdown feature
     selectFromDrop(folder, type) {
       this.dropDown()
       if (type === 'share') {
@@ -1678,7 +1674,6 @@ export default {
       }
       this.$emit('selectedDrop', folder, type, 'folder')
     },
-    // display of dropdown menu
     dropDown() {
       this.dropDownList = !this.dropDownList
     },

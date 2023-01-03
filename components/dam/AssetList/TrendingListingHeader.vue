@@ -96,13 +96,4 @@ export default {
 }
 </script>
 
-<style>
-/* .table-list-view .thead .sorting:hover span:before {
-  position: absolute;
-  content: '\f160';
-  right: 2px;
-  top: 1px;
-  font-family: 'fontAwesome';
-  font-size: 12px;
-} */
-</style>
+<style scoped></style>

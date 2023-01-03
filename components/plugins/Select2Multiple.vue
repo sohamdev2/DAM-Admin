@@ -31,13 +31,6 @@ function customTemplate(obj, container) {
   const image = obj.display_profile_image
   const text = obj.text
   if (!image) {
-    // const template = window.$(
-    //   "<span class='fl-as-imgtxt text-uppercase'>" +
-    //     text.charAt(0) +
-    //     '</span><p>' +
-    //     text +
-    //     '</p>'
-    // )
     const template = window.$(
       `<span class="fl-as-imgtxt text-uppercase ${text
         .charAt(0)
@@ -62,9 +55,6 @@ export default {
     loginBy: Boolean,
     clientBy: Boolean,
     quoteBy: [Number, String],
-
-    /* containerCssClass: 'multiple-xxxxxxxxx',
-          dropdownCssClass: 'multiple-yyyyyyyyyy', */
     disabled: {
       type: Boolean,
       default: false,
@@ -82,7 +72,6 @@ export default {
           multiple: true,
           data: this.options,
           placeholder: this.placeholder,
-          // allowClear: true,
           containerCssClass: this.containerCssClass,
           dropdownCssClass: this.dropdownCssClass,
           templateSelection: customTemplate.bind(this),
@@ -104,7 +93,6 @@ export default {
         multiple: true,
         data: this.options,
         placeholder: this.placeholder,
-        // allowClear: true,
         containerCssClass: this.containerCssClass,
         dropdownCssClass: this.dropdownCssClass,
         templateSelection: customTemplate.bind(this),
@@ -114,12 +102,10 @@ export default {
       .trigger('change')
 
     initSelect2.on('select2:select select2:unselect', (e) => {
-      // const data = e.params.data
       this.model && this.$emit('input', initSelect2.val())
       if (this.customEvent) {
         this.$emit('changeFollower', initSelect2.val())
       }
-      // this.$emit("input", data.id);
     })
     initSelect2.prop('disabled', this.disabled)
   },

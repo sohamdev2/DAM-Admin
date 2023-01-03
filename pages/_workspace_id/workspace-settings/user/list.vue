@@ -949,13 +949,6 @@ export default {
       show_add_user_btn: true,
       completelyLoaded: false,
       selectedRoleType: 0,
-      // roleListType: [
-      //   { id: 0, text: 'User Type - All', name: 'User Type - All' },
-      //   { id: 1, text: 'Super Admin', name: 'Super Admin' },
-      //   { id: 2, text: 'Admin', name: 'Admin' },
-      //   { id: 3, text: 'User', name: 'User' },
-      //   { id: 4, text: 'Client', name: 'Client' },
-      // ],
       roleListType: [
         {
           roles: [
@@ -977,7 +970,6 @@ export default {
   },
   watch: {
     search_name() {
-      // const term = (this.search_name || '').trim()
       if (this.searchTimer) clearTimeout(this.searchTimer)
 
       this.searchTimer = setTimeout(() => {
@@ -1022,8 +1014,6 @@ export default {
         return
       }
 
-      // this.isSortComplete = true;
-
       this.$axios
         .$post(
           `/user/list?page=${this.page}&type=${this.userType}&sort_value=${this.sort_value}&sort_by=${this.sort_by}&search_value=${this.search_name}`,
@@ -1037,7 +1027,6 @@ export default {
           this.show_add_user_btn = data.show_add_user_btn
 
           if (data.users && data.users.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.users.push(...data.users)
               setTimeout(() => {
@@ -1045,7 +1034,6 @@ export default {
               }, 50)
               $state.loaded()
 
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -1139,8 +1127,6 @@ export default {
     },
     clearSearch() {
       this.search_name = ''
-
-      // this.resetUserList();
     },
     changeUserTypeFilter(data) {
       this.search_name = ''

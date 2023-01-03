@@ -126,7 +126,6 @@
 </template>
 
 <script>
-// import { required } from 'vuelidate/lib/validators'
 const checkZero = (value) => Number(value) >= 1
 export default {
   middleware: 'authCheck',
@@ -181,21 +180,12 @@ export default {
         this.project_name = data.project_name
         this.sender_workspace = data.sender_workspace
         this.receiver_email = data.receiver_email
-        // start new added
-        // return this.$router.replace({
-        //   name: 'workspace_id-project',
-        //   params: {
-        //     workspace_id: this.$_auth().id,
-        //   },
-        // })
-        // end new added
         this.getWorkspaceOwnerList()
       } catch (e) {
         const { data } = e.response
         this.general_msg = data.message
         this.loading = false
       }
-      // this.getWorkspaceOwnerList();
     }
   },
   methods: {

@@ -172,7 +172,6 @@ export default {
             this.galleryFiles,
             JSON.parse(JSON.stringify(this.files))
           )
-          //   this.$set(this, 'galleryFiles', [..._files])
           this.currentFileIndex = Math.max(
             this.galleryFiles.findIndex((e) => e.id === this.activeFileId),
             0
@@ -331,14 +330,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* box-shadow: 0 0 60px rgba(250, 250, 250, 0.12); */
   border-radius: 4px;
   overflow: hidden;
   min-height: 64px;
   min-width: 64px;
   max-height: 80vh;
   max-width: 80vh;
-  /* background: rgba(0, 0, 0, 0.7); */
 }
 .drive-gallery .prev,
 .drive-gallery .next {

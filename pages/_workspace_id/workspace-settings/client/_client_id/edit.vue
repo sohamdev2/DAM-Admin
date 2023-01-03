@@ -615,9 +615,7 @@ export default {
   validations: {
     client: {
       company_name: { required },
-      /* company_email: { required, email }, */
       company_email: {},
-      /* phone_number: { required, maxLength: maxLength(20) }, */
       phone_number: {},
       zip_code: { maxLength: maxLength(20) },
       primaryAccountManager: { checkZero },

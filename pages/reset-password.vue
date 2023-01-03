@@ -120,8 +120,6 @@ export default {
           this.dataReady = true
         })
         .catch((e) => {
-          // const { code: statusCode } = e.response.data
-          // this.$toast.error('This link is expired')
           this.$nuxt.error({
             statusCode: 410,
             path: this.$route.path,

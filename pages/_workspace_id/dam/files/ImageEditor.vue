@@ -227,7 +227,7 @@ export default {
 
 img#image {
   display: block;
-  /* This rule is very important, please don't ignore this */
+  /* This rule is very important for the cropper to work properly */
   max-width: 100%;
 }
 

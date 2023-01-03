@@ -21,24 +21,6 @@ export default {
     attrs: { type: Object, default: () => ({}) },
     onDelayDestroy: { type: Boolean, default: false },
   },
-  /* updated() {
-        let initSelect2 = window.$(this.$el)
-          .select2({
-            data: this.options,
-            placeholder: this.placeholder,
-            containerCssClass : this.containerCssClass,
-            dropdownCssClass: this.dropdownCssClass
-          }).val(this.value).trigger("change");
-
-        initSelect2.on('select2:select',(e) => {
-          let data = e.params.data;
-          if(this.customEvent){
-            this.$emit("changeSelect2", data);
-          }
-          this.$emit("input", data.id);
-        });
-        initSelect2.prop('disabled',this.disabled);
-      }, */
   watch: {
     value(value) {
       window.$(this.$el).val(value).trigger('change')

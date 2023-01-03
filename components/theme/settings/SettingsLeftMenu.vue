@@ -90,7 +90,7 @@ import routeParams from '~/mixins/routeParams'
 export default {
   name: 'SettingsLeftMenu',
   components: { Select2 },
-  mixins: [routeParams], // currentRouteName, routeWorkspaceId, routeInstanceId
+  mixins: [routeParams],
   data() {
     return {
       workspace_id: this.$_auth().id,

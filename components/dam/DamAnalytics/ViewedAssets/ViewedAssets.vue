@@ -578,13 +578,11 @@ export default {
           this.lastPage = data.asset_data.last_page
 
           if (data.asset_data.data && data.asset_data.data.length) {
-            // fix for duplicate entries
             if (
               parseInt(this.page) === parseInt(data.asset_data.current_page)
             ) {
               this.viewedAssetsList.push(...data.asset_data.data)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -633,13 +631,11 @@ export default {
           this.lastPage = data.asset_data.last_page
 
           if (data.asset_data.data && data.asset_data.data.length) {
-            // fix for duplicate entries
             if (
               parseInt(this.page) === parseInt(data.asset_data.current_page)
             ) {
               this.viewedAssetsList.push(...data.asset_data.data)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -688,13 +684,11 @@ export default {
           this.lastPage = data.asset_data.last_page
 
           if (data.asset_data.data && data.asset_data.data.length) {
-            // fix for duplicate entries
             if (
               parseInt(this.page) === parseInt(data.asset_data.current_page)
             ) {
               this.viewedAssetsList.push(...data.asset_data.data)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()

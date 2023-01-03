@@ -723,7 +723,6 @@
   </div>
 </template>
 <script>
-// import { ContentLoader } from 'vue-content-loader'
 import { isEmpty } from 'lodash'
 import vClickOutside from 'v-click-outside'
 import Profile from '~/assets/img/profile.png'
@@ -732,9 +731,7 @@ export default {
   directives: {
     clickOutside: vClickOutside.directive,
   },
-  components: {
-    // ContentLoader,
-  },
+  components: {},
   data() {
     return {
       dummyProfile: Profile,
@@ -751,8 +748,6 @@ export default {
       enableBellClick: true,
       badgesCount: this.$auth.user.project_badges_count,
       showOnlyUnreadNotifications: false,
-
-      /* Announcement data vars */
       initialLoading_: false,
       loadMoreLoading_: false,
       page_: 1,
@@ -821,9 +816,7 @@ export default {
         show: this.badgesCount >= 1,
         count_: this.badgesCount > 9 ? `9+` : `${this.badgesCount}`,
       }
-      // return this.badgesCount > 9 ? `9+` : `${this.badgesCount}`
     },
-    /* Announcements Computed Properties */
     announcementComputed() {
       if (this.showOnlyUnreadAnnouncements) {
         return this.announcements.filter(({ read_at }) => read_at === null)
@@ -847,28 +840,8 @@ export default {
           data: { project_badges_count },
         } = e
         this.badgesCount = project_badges_count
-        // this.closeList()
       })
     this.loadJQ()
-    /* const listElm = document.querySelector('.notification-body')
-    listElm.addEventListener('scroll', (e) => {
-      console.log(
-        listElm.scrollTop + listElm.clientHeight,
-        listElm.scrollHeight
-      )
-      if (
-        Math.round(listElm.scrollTop + listElm.clientHeight) + 10 >=
-        listElm.scrollHeight
-      ) {
-        if (this.activeTab === 1) {
-          this.systemNotifications.length &&
-            this.loadMoreNotifications()
-        }
-        if (this.activeTab === 2) {
-          //  alert('announcements')
-        }
-      }
-    }) */
     this.getBadgesCount()
   },
   beforeDestroy() {
@@ -899,7 +872,6 @@ export default {
         this.systemNotifications.length && this.loadMoreNotifications()
       }
       if (this.activeTab === 2) {
-        // alert('announcements').
         this.announcements.length && this.loadMoreAnnouncements()
       }
     },
@@ -922,9 +894,6 @@ export default {
         this.enableClickOutside = false
         this.enableBellClick = true
         this.showList = false
-        /* window.$('.notification-body').animate({
-          scrollTop: window.$('.notification-body').get(0).scrollHeight,
-        }) */
         setTimeout(() => {
           this.activeTab = 1
           this.initialLoading = false
@@ -933,8 +902,6 @@ export default {
           this.page = 1
           this.lastPage = 1
           this.showOnlyUnreadNotifications = false
-
-          /* Announcement reset vars */
           this.initialLoading_ = false
           this.announcements = []
           this.showLast30DaysMsg_ = false
@@ -948,22 +915,18 @@ export default {
       if (noti.is_clickable === 1) {
         const params = {
           workspace_id: noti.workspace_detail.workspace_id,
-          // project_id: noti.project_detail.project_id,
           notification_id: noti.id,
         }
         if (noti.task_detail) {
           params.project_id = noti.project_detail.project_id
           params.task_id = noti.task_detail.id
-          // go to task detail
           this.taskClicked(params)
         }
         if (noti.project_detail) {
           params.project_id = noti.project_detail.project_id
-          // go to project detail
           this.projectClicked(params)
         }
       }
-      // mark notification as read
       if (noti.is_clickable === 0) {
         this.readNotification(noti.id)
       }
@@ -1031,7 +994,6 @@ export default {
         this.loadMoreLoading = false
         this.initialLoading = false
         if (data.data.length) {
-          // this.showLast30DaysMsg = true
           this.systemNotifications.push(...data.data)
           this.page += 1
         } else {
@@ -1043,7 +1005,7 @@ export default {
         this.$toast.error(this.$getErrorMessage(e))
       }
     },
-    async readNotification(nId) {
+    readNotification(nId) {
       const findIndex = this.systemNotifications.findIndex(
         ({ id }) => parseInt(id) === parseInt(nId)
       )
@@ -1055,21 +1017,16 @@ export default {
           this.unreadNotifications = currentCount - 1
 
           try {
-            const { data } = await this.$axios.$post(
-              `user-notification/project-read`,
-              {
-                notification_id: nId,
-              }
-            )
-            // this.unreadNotifications = data.total_unread_notification
-            console.log(data)
+            this.$axios.$post(`user-notification/project-read`, {
+              notification_id: nId,
+            })
           } catch (e) {
             this.$toast.error(this.$getErrorMessage(e))
           }
         }
       }
     },
-    async readUnreadNotification(nId) {
+    readUnreadNotification(nId) {
       const findIndex = this.systemNotifications.findIndex(
         ({ id }) => parseInt(id) === parseInt(nId)
       )
@@ -1084,14 +1041,9 @@ export default {
           : currentCount + 1
       }
       try {
-        const { data } = await this.$axios.$post(
-          `user-notification/project-read-unread`,
-          {
-            notification_id: nId,
-          }
-        )
-        // this.unreadNotifications = data.total_unread_notification
-        console.log(data)
+        this.$axios.$post(`user-notification/project-read-unread`, {
+          notification_id: nId,
+        })
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
       }
@@ -1103,7 +1055,6 @@ export default {
       this.unreadNotifications = 0
       try {
         await this.$axios.$post(`user-notification/mark-all-project-read`, {})
-        // this.unreadNotifications = data.total_unread_notification
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
       }
@@ -1111,8 +1062,6 @@ export default {
     onClickOutsideOfList() {
       this.closeList()
     },
-
-    /* Announcements methods */
     async initialLoadAnnouncements() {
       try {
         this.initialLoading_ = true
@@ -1150,7 +1099,6 @@ export default {
         this.loadMoreLoading_ = false
         this.initialLoading_ = false
         if (data.data.length) {
-          // this.showLast30DaysMsg_ = true
           this.announcements.push(...data.data)
           this.page_ += 1
         } else {
@@ -1162,7 +1110,7 @@ export default {
         this.$toast.error(this.$getErrorMessage(e))
       }
     },
-    async readAnnouncement(aId) {
+    readAnnouncement(aId) {
       const findIndex = this.announcements.findIndex(
         ({ id }) => parseInt(id) === parseInt(aId)
       )
@@ -1174,19 +1122,17 @@ export default {
           this.unreadAnnouncements = currentCount - 1
 
           try {
-            const { data } = await this.$axios.$post(`announcement/read`, {
+            this.$axios.$post(`announcement/read`, {
               notification_id: aId,
               module_id: 1,
             })
-            // this.unreadNotifications = data.total_unread_notification
-            console.log(data)
           } catch (e) {
             this.$toast.error(this.$getErrorMessage(e))
           }
         }
       }
     },
-    async readUnreadAnnouncement(aId) {
+    readUnreadAnnouncement(aId) {
       const findIndex = this.announcements.findIndex(
         ({ id }) => parseInt(id) === parseInt(aId)
       )
@@ -1199,24 +1145,21 @@ export default {
           : currentCount + 1
       }
       try {
-        const { data } = await this.$axios.$post(`announcement/read-unread`, {
+        this.$axios.$post(`announcement/read-unread`, {
           notification_id: aId,
           module_id: 1,
         })
-        // this.unreadNotifications = data.total_unread_notification
-        console.log(data)
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
       }
     },
-    async readAllAnnouncements() {
+    readAllAnnouncements() {
       this.announcements = this.announcements.map((data) => {
         return { ...data, read_at: 'read' }
       })
       this.unreadAnnouncements = 0
       try {
-        await this.$axios.$post(`announcement/mark-all-read?module_id= 1`)
-        // this.unreadNotifications = data.total_unread_notification
+        this.$axios.$post(`announcement/mark-all-read?module_id= 1`)
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
       }
@@ -1224,7 +1167,6 @@ export default {
     announcementClicked(anno) {
       this.clickedAnnouncementDetail = anno
       this.readAnnouncement(anno.id)
-      // this.closeList()
     },
     htmlToText(string) {
       return string.replace(/<[^>]+>/g, '')

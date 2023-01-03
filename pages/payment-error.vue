@@ -62,8 +62,6 @@
 import SubscriptionHeader from '@/components/theme/SubscriptionHeader'
 
 export default {
-  // layout: 'outerLayout',
-  // middleware: ['guestCheck'],
   components: { SubscriptionHeader },
 }
 </script>

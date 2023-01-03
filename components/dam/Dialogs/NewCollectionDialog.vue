@@ -72,7 +72,6 @@ export default {
     }
   },
   computed: {
-    // inside collection route
     isCollection() {
       return this.$route.name.search('collection') > -1
     },

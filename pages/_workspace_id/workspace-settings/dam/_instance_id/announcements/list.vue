@@ -635,14 +635,12 @@ export default {
           this.lastPage = data.last_page
           this.show_add_announcement_btn = data.show_add_announcement_btn
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.announcements.push(...data.data)
               setTimeout(() => {
                 this.tableListScrolling()
               }, 50)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -664,7 +662,6 @@ export default {
     },
     clearSearch() {
       this.search_term = ''
-      // this.resetFilter()
     },
     sortByColumn(column) {
       this.sort_value = column

@@ -117,18 +117,7 @@ export default {
             name: 'Videos',
             subText: this.data.total_videos || 0,
           },
-          // {
-          //   to: {
-          //   name: 'workspace_id-dam-folders',
-          //   params: { workspace_id: workspaceId },
-          //   hash: `#${folder.id}`
-          // },
-          //   src: require("~/assets/img/logo-icon.svg"),
-          //   name: "Logos",
-          //   subText: (this.data&& this.data.total_audios) || 0
-          // },
         ],
-        // .sort(this.$sortBy('name')),
         {
           show: true,
           to: {
@@ -155,7 +144,6 @@ export default {
           to: {
             name: 'workspace_id-dam-uploaded',
             params: { workspace_id: this.$getWorkspaceId() },
-            // hash: '#uncategorized',
           },
           src: '<svg class="uncategorized-icon white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 16 16" xml:space="preserve"><g id="category_2_" transform="translate(-0.25 -0.25)"><path id="Path_40844" class="fill-color" d="M5.7,7.1H1.7c-0.8,0-1.5-0.7-1.5-1.5V1.7c0-0.8,0.7-1.5,1.5-1.5h3.9c0.8,0,1.5,0.7,1.5,1.5v3.9C7.2,6.4,6.5,7.1,5.7,7.1z M1.7,1.4c-0.2,0-0.3,0.2-0.3,0.3v3.9C1.4,5.8,1.6,6,1.7,6h3.9C5.9,6,6,5.8,6,5.6V1.7c0-0.2-0.2-0.3-0.3-0.3L1.7,1.4z"/><path id="Path_40845" class="fill-color" d="M5.7,16.2H1.8c-0.8,0-1.5-0.7-1.5-1.5v-3.9c0-0.8,0.7-1.5,1.5-1.5h3.9c0.8,0,1.5,0.7,1.5,1.5v3.9C7.2,15.6,6.5,16.3,5.7,16.2L5.7,16.2z M1.8,10.5c-0.2,0-0.3,0.2-0.3,0.3v3.9c0,0.2,0.2,0.3,0.3,0.3h3.9c0.2,0,0.3-0.2,0.3-0.3v-3.9c0-0.2-0.2-0.3-0.3-0.3L1.8,10.5z"/><path id="Path_40846" class="fill-color" d="M14.8,16.2h-3.9c-0.8,0-1.5-0.7-1.5-1.5v-3.9c0-0.8,0.7-1.5,1.5-1.5h3.9c0.8,0,1.5,0.7,1.5,1.5v3.9C16.2,15.6,15.6,16.3,14.8,16.2L14.8,16.2z M10.8,10.5c-0.2,0-0.3,0.2-0.3,0.3v3.9c0,0.2,0.2,0.3,0.3,0.3h3.9c0.2,0,0.3-0.2,0.3-0.3v-3.9c0-0.2-0.2-0.3-0.3-0.3L10.8,10.5z"/><path id="Path_40847" class="fill-color" d="M12.8,7.1c-1.9,0-3.4-1.6-3.4-3.5c0-1.9,1.6-3.4,3.5-3.4c1.9,0,3.4,1.5,3.4,3.4C16.3,5.6,14.7,7.1,12.8,7.1C12.8,7.1,12.8,7.1,12.8,7.1z M12.8,1.4c-1.3,0-2.3,1-2.2,2.3c0,1.3,1,2.3,2.3,2.2c1.2,0,2.2-1,2.2-2.3C15.1,2.4,14.1,1.4,12.8,1.4C12.8,1.4,12.8,1.4,12.8,1.4z"/></g></svg>',
           name: 'Uncategorized',
@@ -170,7 +158,6 @@ export default {
 <style>
 .asset-overview a.overview-item--small {
   padding: 0.5rem 12px;
-  /* background: #dfdfdf; */
 }
 .asset-overview a {
   margin-bottom: 0.75rem;

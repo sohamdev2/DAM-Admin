@@ -388,11 +388,9 @@ export default {
           this.lastPage = data.last_page
 
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.assetsLocationBasedList.push(...data.data)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 $state.complete()
               } else {

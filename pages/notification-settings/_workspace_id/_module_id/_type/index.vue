@@ -403,12 +403,10 @@ export default {
   mounted() {
     this.loading = true
     this.notificationList = []
-    // if (parseInt(this.module_id) === 2) {
     this.$store.dispatch('dam/getNotifications')
     this.loading = true
     this.notificationList = []
     this.getDamNotifications().then(() => (this.loading = false))
-    // }
   },
   methods: {
     emailNotificationClicked() {

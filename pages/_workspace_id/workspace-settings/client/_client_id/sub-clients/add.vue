@@ -176,11 +176,9 @@ export default {
   },
   methods: {
     changeLogo(event) {
-      // const oneMB = 7000
       const twoMB = 2097152
       if (event.target.files[0]) {
         if (!event.target.files[0].type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
           return
         }
@@ -235,9 +233,7 @@ export default {
   },
   validations: {
     company_name: { required },
-    /* company_email: { required, email }, */
     company_email: {},
-    /* phone_number: { required, maxLength: maxLength(20) }, */
     phone_number: {},
   },
 }

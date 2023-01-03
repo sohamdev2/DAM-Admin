@@ -133,26 +133,24 @@ export default {
   },
   layout: 'damLayout',
   middleware: ['check-if-suspended'],
-  computed: {
-    untagAssetAnalyticsAllowed() {
-      return !!this.$auth.user?.subscription_features?.untagged_asset_management
-        ?.enable
-    },
-  },
   data() {
     return {
-      /* untagged Assets By Category */
       untaggedAssetsByCategory: false,
       untaggedAssetsByCategoryData: null,
       untaggedAssetsByCategoryOptions: {},
       graphLoading: true,
     }
   },
+  computed: {
+    untagAssetAnalyticsAllowed() {
+      return !!this.$auth.user?.subscription_features?.untagged_asset_management
+        ?.enable
+    },
+  },
   created() {
     this.getAllUntaggedAssetsAnalytics()
   },
   methods: {
-    /* untagged Assets By Category */
     async getAllUntaggedAssetsAnalytics() {
       if (!this.untagAssetAnalyticsAllowed) return
       this.graphLoading = true

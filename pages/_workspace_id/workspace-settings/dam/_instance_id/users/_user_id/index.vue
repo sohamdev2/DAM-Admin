@@ -246,7 +246,6 @@ export default {
 
       if (this.logo.file) formData.append('profile_image', this.logo.file)
       formData.append('name', this.user.name)
-      // formData.append("email", this.user.email);
       if (this.user.phone) formData.append('phone', this.user.phone)
       await this.$axios
         .$post('digital-assets/instance/update-user', formData)
@@ -273,11 +272,9 @@ export default {
       } = target
 
       if (!file) {
-        // this.logo = { file: null, src: null }
         return
       }
       if (!file.type.match('image.*')) {
-        // check whether the upload is an image
         this.$toast.global.error('Please choose an image file')
         return
       }

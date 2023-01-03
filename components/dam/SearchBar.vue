@@ -965,11 +965,6 @@ export default {
         this.moreOptions = false
         this.reset()
       }
-      // if (route.hash !== '#search') {
-      //   window.$('body').removeClass('show-overly')
-      //   this.moreOptions = false
-      //   this.reset()
-      // }
     },
     hashParam() {
       if (!this.$route.params.searchParams)
@@ -1007,7 +1002,6 @@ export default {
     },
     active(a) {
       if (a) {
-        // this.$nextTick(() => this.initJquery())
         document.addEventListener('click', this.delayedBlured)
         document.addEventListener('contextmenu', this.delayedBlured)
       } else {
@@ -1019,10 +1013,6 @@ export default {
       this.active = true
       this.commonSearch()
     },
-    // search() {
-    //   this.active = true
-    //   this.commonSearch()
-    // },
   },
   mounted() {
     this.$nextTick(() => {
@@ -1049,7 +1039,6 @@ export default {
     reset() {
       this.searchParams = new SearchParams()
       if (this.$route.hash === '#search') {
-        // this.moreOptions = false
         this.$nextTick(() => {
           this.$router.push({
             name: 'workspace_id-dam-folders',
@@ -1108,8 +1097,6 @@ export default {
     },
     search() {
       if (!this.hasFilters) return
-
-      // this.$emit("search");
 
       const routeOptions = {
         params: {
@@ -1264,7 +1251,6 @@ export default {
           })
           .then(({ data }) => {
             this.searchResult = data || {}
-            // this.$nextTick(() => this.initJquery())
           })
           .finally(() => {
             this.pastedText = null
@@ -1290,7 +1276,6 @@ export default {
         this.recentActive = true
         this.searchHistoryList = data
       } catch (e) {
-        // const { data } = e.response
         this.loading = false
         this.recentActive = false
       }
@@ -1344,24 +1329,6 @@ export default {
 .tag-list .form-control.type-2 {
   height: 44px !important;
 }
-/* .selected-tags.popular-tags .select-field label,
-.select-field label,
-.select-box,
-.popular-tags .select-field label {
-  transition: 240ms ease;
-  color: #212121;
-  outline: none;
-  border-radius: 4px;
-  background-color: white !important;
-  border: 2px solid transparent !important;
-  font-weight: 500 !important;
-  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.082) !important;
-} */
-/* .selected-tags.popular-tags .select-field label:hover,
-.select-field label:hover,
-.popular-tags .select-field label:hover {
-  background-color: #f1f1f1 !important;
-} */
 .selected-tags.popular-tags .select-field label {
   font-size: 12px;
   box-shadow: none !important;
@@ -1378,11 +1345,4 @@ export default {
   width: 10px;
   padding: 2px;
 }
-
-/* .select-box.dam-selected,
-.select-field input:checked + label {
-  background-color: #e2e2e2 !important;
-  color: #483229;
-  box-shadow: none !important;
-} */
 </style>

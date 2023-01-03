@@ -20,13 +20,6 @@ function customTemplate(obj) {
   if (image)
     return window.$(`<img src="${obj.display_profile_image}"><p>${text}</p>`)
 
-  // return window.$(
-  //   "<span class='fl-as-imgtxt text-uppercase'>" +
-  //     text.charAt(0) +
-  //     '</span><p>' +
-  //     text +
-  //     '</p>'
-  // )
   return window.$(
     `<span class="fl-as-imgtxt text-uppercase ${text
       .charAt(0)
@@ -64,7 +57,6 @@ export default {
         (option) => parseInt(option.id) === parseInt(this.value)
       )
       if (!user) {
-        // this.$emit("optionChangeHandler", 0);
         value = 0
       }
 
@@ -172,7 +164,6 @@ export default {
     let value = this.value
 
     if (!user) {
-      // this.$emit("optionChangeHandler", 0);
       value = 0
     }
 
@@ -264,7 +255,6 @@ export default {
         if (this.customEvent) {
           this.$emit('optionChangeHandler', data)
         }
-        // this.$emit("input", data.id);
       })
       .prop('disabled', this.disabled)
   },

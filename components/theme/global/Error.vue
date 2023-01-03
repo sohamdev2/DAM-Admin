@@ -57,10 +57,7 @@ export default {
         this.$router.push('/')
       } else {
         await this.$logout()
-        // if (this.error.statusCode === 401) {
         window.location.reload()
-        // }
-        // this.$router.push('/')
       }
     },
   },

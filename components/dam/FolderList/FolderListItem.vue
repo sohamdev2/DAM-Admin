@@ -714,7 +714,7 @@ export default {
               ? this.folder.id
               : this.folder.id === this.selection
               ? null
-              : this.folder.id // toggle selection
+              : this.folder.id
           )
           this.$emit('click', ev)
         }.bind(this)
@@ -744,7 +744,6 @@ export default {
     },
   },
   methods: {
-    // left pannel folder dropdown feature
     selectFromPanel(folder, type) {
       if (type === 'share') {
         const folderId = this.folder.id
@@ -768,7 +767,6 @@ export default {
         this.$emit('selectedDrop', folder, type, 'folder')
       }
     },
-    // rename of folders feature
     async changeFileName(discard) {
       const fileName = this.getFileName
 
@@ -805,9 +803,7 @@ export default {
             .then(() => {
               this.$toast.global.success('Folder renamed successfully.')
             })
-          // if (this.folder.parent_id !== null) {
           this.$emit('folderNameChanged', this.folder, fileName)
-          // }
         })
         .catch((e) => {
           this.$toast.global.error(this.$getErrorMessage(e))

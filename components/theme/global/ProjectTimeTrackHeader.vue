@@ -1,15 +1,6 @@
 <template>
   <header class="header bg-gray">
-    <div class="header-left">
-      <!-- <CoreCommanSearchBar
-        v-if="
-          $route.name != 'profile' &&
-          $route.name != 'notification-settings-workspace_id-module_id-type' &&
-          $route.name != 'workspace_id-child-workspace-create' &&
-          $route.name != 'workspace_id-child-workspace-choose-modules'
-        "
-      /> -->
-    </div>
+    <div class="header-left"></div>
     <div class="header-right">
       <ProjectSystemNotifications
         v-if="
@@ -28,14 +19,12 @@
 import $ from 'jquery'
 import moment from 'moment'
 import ProfileDropDown from '~/components/theme/global/ProfileDropDown'
-// import CoreCommanSearchBar from '~/components/theme/global/CoreCommanSearchBar'
 import ProjectSystemNotifications from '~/components/theme/global/ProjectSystemNotifications'
 export default {
   name: 'Header',
   components: {
     ProjectSystemNotifications,
     ProfileDropDown,
-    // CoreCommanSearchBar,
   },
   data() {
     return {}
@@ -46,8 +35,6 @@ export default {
     this.$echo
       .private(`timer.add.user.${this.$auth.user.id}`)
       .listen('.timerCreatedEvent', (e) => {
-        // alert(JSON.stringify(e));
-        // console.log('asdasdasdasd-time track')
         const data = e.data
         const isTodayDate = this.$moment(data.start_date)
           .local()
@@ -59,7 +46,6 @@ export default {
               this.resetTimer()
               this.initTimer(data)
               this.$toast.global.success('Timer has been started')
-              // this.saveTimeEntryXInterval();
             }
           }
         }
@@ -68,8 +54,6 @@ export default {
     this.$echo
       .private(`timer.update.user.${this.$auth.user.id}`)
       .listen('.timerUpdateEvent', (e) => {
-        // console.log(JSON.stringify(e))
-        // console.log('timerUpdateEvent - header time track')
         this.startStopTimerClientSide(e.data, e.data.user_id)
 
         const { data } = e
@@ -120,7 +104,6 @@ export default {
   },
   methods: {
     loadJs() {
-      /* start header searchbar */
       $('.main-search-box .search-result-option').hover(function () {
         $('.search-result-option').removeClass('selected')
         $(this).addClass('selected')
@@ -131,7 +114,6 @@ export default {
           'selected'
         )
       })
-      /* end header searchbar */
     },
   },
 }

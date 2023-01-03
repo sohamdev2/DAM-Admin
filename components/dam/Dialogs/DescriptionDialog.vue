@@ -38,8 +38,6 @@ export default {
 
   methods: {
     async debounceSearch(event) {
-      // clearTimeout(this.debounce)
-      // this.debounce = setTimeout(async () => {
       if (this.description !== this.collection.description) {
         if (this.description === '') {
           this.description = null
@@ -56,8 +54,6 @@ export default {
           .catch((e) => {
             this.$toast.global.error(this.$getErrorMessage(e))
           })
-        // this.description = event.target.value
-        // }, 1000)
       }
     },
   },

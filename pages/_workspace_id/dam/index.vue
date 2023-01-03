@@ -1058,10 +1058,10 @@
                   <li>
                     <h3 v-if="availableStorage === 'unlimited'">
                       <svg
+                        id="Layer_1"
                         style="height: 26px"
                         class="infinite-icon"
                         version="1.1"
-                        id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                         x="0px"
@@ -1155,7 +1155,6 @@ import Pie from '~/components/plugins/Pie'
 import FolderList from '~/components/dam/FolderList'
 import SelectionBar from '~/components/dam/SelectionBar'
 import AssetOverview from '~/components/dam/AssetOverview'
-// import Resource from '~/components/dam/AssetList/Resource'
 import NewFolderDialog from '~/components/dam/Dialogs/NewFolderDialog'
 import TrendingResource from '~/components/dam/AssetList/TrendingResource'
 import TrendingListingHeader from '~/components/dam/AssetList/TrendingListingHeader'
@@ -1164,7 +1163,7 @@ import DeleteDialog from '~/components/plugins/DeleteDialog'
 import MoveFolderDialog from '~/components/dam/Dialogs/MoveFolderDialog'
 import CopyFolderDialog from '~/components/dam/Dialogs/CopyFolderDialog'
 import MoveFolderToFolderDialog from '~/components/dam/Dialogs/MoveFolderToFolderDialog'
-import switchWorkspaceDialog from '~/components/theme/project/switchWorkspaceDialog'
+import switchWorkspaceDialog from '~/components/theme/switchWorkspaceDialog'
 
 function makeFolder(array) {
   return [...array].map((folder) => ({
@@ -1201,9 +1200,6 @@ export default {
     'can-access-dam-module',
     'check-if-suspended',
   ],
-  // asyncData({ store }) {
-  //   store.dispatch('dam/getFolders')
-  // },
   data() {
     return {
       timeFrame: [
@@ -1296,7 +1292,6 @@ export default {
         },
         mode: 'storage',
       },
-      // dropdown feature
       resource: [],
       resourceType: null,
       updateList: 1,
@@ -1372,14 +1367,12 @@ export default {
     uncategoryAlert() {
       return this.alertData?.active
     },
-    // calculation of month for dynamic width of line chart
     widthCal() {
       const startDate = this.$moment(this.graph.dates.startDate, 'YYYY-MM-DD')
       const endDate = this.$moment(this.graph.dates.endDate, 'YYYY-MM-DD')
       const monthDiff = endDate.diff(startDate, 'months')
       return monthDiff
     },
-    // folders that are open in panel view
     activeSelection() {
       return this.$store.state.dam.activeSelection
     },
@@ -1434,12 +1427,6 @@ export default {
   beforeDestroy() {
     this.$nuxt.$off('update-overview-data')
   },
-  // beforeMount() {
-  //   this.$store.commit('dam/clearAllUploads')
-  // },
-  // beforeRouteEnter(to, from, next) {
-  //   next((vm) => vm.$store.commit('dam/clearAllUploads'))
-  // },
   methods: {
     dateChangeHandler(data) {
       this.selectedTimeFrame = data.id
@@ -1540,7 +1527,6 @@ export default {
       this.getOverviewData()
       this.selectNone()
     },
-    // move assets
     moveSelectedFiles(moveTo) {
       const activeSelectionList = this.activeSelection
 
@@ -1598,15 +1584,10 @@ export default {
             })
           })
       }
-
-      // this.trendingData = this.trendingData.filter(
-      //   ({ id }) => !fileIds.includes(id)
-      // )
       movedFile = []
       this.selectNone()
       this.getOverviewData()
     },
-    // copy of assets feature
     updateTrendingAssetList(selectedFolderData) {
       const activeSelectionList = this.activeSelection
       selectedFolderData.map(async (item) => {
@@ -1663,9 +1644,7 @@ export default {
       }
       this.getOverviewData()
     },
-    // left panel folder dropdown feature
     selectFromDropdown(file, type, resourceType, isTrending) {
-      // this.selectedFiles = []
       this.resourceType = resourceType
       this.resource = [file]
       if (type === 'move') {
@@ -1684,7 +1663,6 @@ export default {
       }
       if (isTrending) this.reloadTrending = true
     },
-    // left panel folder delete feature
     deleteFromDrop() {
       const fileId = this.resource[0].file_name ? this.resource[0].id : null
       const folderId = this.resource[0].folder_name ? this.resource[0].id : null
@@ -1745,14 +1723,6 @@ export default {
           })
         }
       }
-      // if (this.trendingType === 'recent_uploaded') {
-      //   this.$axios
-      //     .$post('digital-assets/dashboard/recent-upload-url', {
-      //       workspace_id: this.$getWorkspaceId(),
-      //       is_admin_user: 1,
-      //     })
-      //     .catch(() => {})
-      // }
       this.selectNone()
       await this.$axios
         .$get(`digital-assets/dashboard/trending-recent-assets`, {
@@ -1791,7 +1761,6 @@ export default {
           resourcesIds,
           indexOfParent,
         })
-        // end of deletion of folder from panel view
         const selectedIds = this.selectedFolders.map(({ id }) => id)
         this.subFolders = this.subFolders.filter(
           ({ id }) => !selectedIds.includes(id)
@@ -1804,7 +1773,6 @@ export default {
         this.trendingData = this.trendingData.filter(
           ({ id }) => !fileIds.includes(id)
         )
-        // delete assets from all views
         if (this.parentOfselected && !this.resource.length) {
           const resourcesIds = [].concat(fileIds)
           const activeSelectionList = this.activeSelection
@@ -1930,7 +1898,6 @@ export default {
       }
     },
     async getGraphData(startDate, endDate) {
-      // if (this.graph.loading) return
       this.graph.loading = true
 
       const { data } = await this.$axios

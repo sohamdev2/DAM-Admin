@@ -466,7 +466,6 @@ export default {
     },
     getAbbreviation() {
       const prefix = this.skuManagement.is_prefix || ''
-      // const suffix = this.skuManagement.is_suffix || ''
       const abbr = this.skuManagement.workspace_abbreviation || ''
       const product = this.skuManagement.product_number || ''
       if (!abbr || !product) return '-'

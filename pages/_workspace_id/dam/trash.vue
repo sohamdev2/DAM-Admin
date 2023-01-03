@@ -247,19 +247,13 @@ export default {
       files: [],
       subFolders: [],
       noData: false,
-      // ** UI **
       mode: 'tile', // list Style
-
-      // loaders
       loading: true,
       deleting: false,
       restoring: false,
-      // pagination
-      page, // currentPage
+      page,
       lastPage: -1,
-
       totalApiAssets: null,
-      // dropdown feature
       resource: [],
       resourceType: null,
     }
@@ -300,18 +294,6 @@ export default {
       } else {
         this.currentFolder = false
       }
-      // const previous = this.selectedFolders[this.selectedFolders.length - 1]
-      // const fileSelection = this.selectedFiles[this.selectedFiles.length - 1]
-
-      // if (
-      //   fileSelection !== undefined &&
-      //   fileSelection?.category_id !== folder?.parent_id
-      // ) {
-      //   this.selectedFiles = []
-      // }
-      // if (previous && previous.parent_id !== folder.parent_id) {
-      //   this.selectedFolders = []
-      // }
       const index = this.selectedFolders.findIndex(({ id }) => folder.id === id)
       if (~index) {
         this.selectedFolders.splice(index, 1)
@@ -325,7 +307,6 @@ export default {
         this.parentOfselected = folder.parent_id
       }
     },
-    // dropdown feature for resources
     dropDown(file, type, resourceType) {
       this.resourceType = resourceType
       this.resource = [file]
@@ -335,7 +316,6 @@ export default {
         this.$refs.restoreDialog.show()
       }
     },
-    // delete feature for resources
     deleteFromDrop() {
       const folders = this.resourceType === 'folder' ? this.resource : []
       const files = this.resourceType === 'file' ? this.resource : []
@@ -372,7 +352,6 @@ export default {
           this.$toast.global.error(this.$getErrorMessage(e))
         })
     },
-    // restore feature for resources
     restoreFromDrop() {
       this.restoring = true
       const folder = this.resourceType === 'folder' ? this.resource[0] : null
@@ -411,10 +390,6 @@ export default {
           this.restoring = false
           this.$toast.global.error(this.$getErrorMessage(e))
         })
-      // this.$refs.selectionbar.restoreSelectedFiles(
-      //   this.resource,
-      //   this.resourceType
-      // )
     },
     prefetch() {
       this.totalApiAssets = null
@@ -468,13 +443,6 @@ export default {
       )
 
       this.noData = !this.files.length && !this.subFolders.length
-      // if (
-      //   this.noData ||
-      //   !(this.selectedFiles.length + this.selectedFolders.length)
-      // )
-      // this.selectNone()
-
-      // this.getData();
     },
     removeSelectedFiles() {
       const fileIds = this.selectedFiles.map(({ id }) => id)
@@ -482,8 +450,6 @@ export default {
       this.selectedFiles = []
 
       this.noData = !this.files.length && !this.subFolders.length
-
-      // this.getData();
     },
     removeFile(...files) {
       const fileIds = files.map(({ id }) => id)
@@ -508,7 +474,6 @@ export default {
     async getData() {
       this.loading = true
       this.noData = false
-      // empty all array
       this.subFolders = []
       this.files = []
       this.selectNone()
@@ -521,9 +486,6 @@ export default {
     },
     async getDeletedItems() {
       const body = {
-        // page: this.page,
-        // sort_value: this.apiSortValue(),
-        // sort_by: this.apiSortOrder().toLowerCase(),
         workspace_id: this.$getWorkspaceId(),
       }
 
@@ -533,10 +495,6 @@ export default {
             this.$toQueryString(body)
         )
         .then(({ data: { categories, assets } }) => {
-          // this.page = current_page;
-          // this.lastPage = last_page;
-          // this.totalApiAssets = total;
-
           this.subFolders = (categories || []).map((folder) => ({
             ...folder,
             total_contain:

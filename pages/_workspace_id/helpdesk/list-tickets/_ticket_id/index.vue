@@ -445,7 +445,6 @@ export default {
         .post('ticket/comment/add', commentForm)
         .then(({ data }) => {
           this.$toast.success(data.message)
-          // console.log(data)
           this.comments.push({
             author: data.data.author,
             body: data.data.body,

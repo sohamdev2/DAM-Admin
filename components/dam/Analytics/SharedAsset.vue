@@ -278,7 +278,6 @@ export default {
       DATE_FORMAT: 'YYYY-MM-DD',
       assetLinkList: [],
       loading: false,
-      /* isCollection: 'all', */
     }
   },
   watch: {

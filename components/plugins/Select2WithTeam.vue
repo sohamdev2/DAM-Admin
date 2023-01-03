@@ -80,9 +80,6 @@ export default {
     customEvent: Boolean,
     containerCssClass: String,
     dropdownCssClass: String,
-
-    /* containerCssClass: 'multiple-xxxxxxxxx',
-          dropdownCssClass: 'multiple-yyyyyyyyyy', */
     disabled: {
       type: Boolean,
       default: false,
@@ -99,7 +96,6 @@ export default {
         .select2({
           data: this.options,
           placeholder: this.placeholder,
-          // allowClear: true,
           containerCssClass: this.containerCssClass,
           dropdownCssClass: this.dropdownCssClass,
           templateSelection: customTemplate,
@@ -120,7 +116,6 @@ export default {
       .select2({
         data: this.options,
         placeholder: this.placeholder,
-        // allowClear: true,
         containerCssClass: this.containerCssClass,
         dropdownCssClass: this.dropdownCssClass,
         templateSelection: customTemplate,
@@ -142,7 +137,6 @@ export default {
           groupData: data,
         })
       }
-      // this.$emit("input", data.id);
     })
     initSelect2.prop('disabled', this.disabled)
   },

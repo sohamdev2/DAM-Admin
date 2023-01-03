@@ -81,11 +81,9 @@
 </template>
 <script>
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
-// import moment from 'moment-timezone'
 
 export default {
   layout: 'outerLayout',
-  /* middleware: ['guestCheck'], */
   data() {
     return {
       loading: false,
@@ -108,7 +106,6 @@ export default {
       }
       try {
         this.loading = true
-        // this.form.timezone = moment.tz.guess()
         const { message } = await this.$axios.$post(
           'generate-common-password',
           this.form

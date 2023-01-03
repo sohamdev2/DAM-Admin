@@ -341,18 +341,14 @@ export default {
       $(document).find('.invitation-dismiss').trigger('click')
     },
     changeLogo(event) {
-      // const oneMB = 7000
       const twoMB = 2097152
       if (event.target.files[0]) {
         if (!event.target.files[0].type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
           return
         }
         if (event.target.files[0].size < twoMB) {
-          // this.uploadingLogo = true
           this.logo = event.target.files[0]
-          // this.logo_preview = null
           const input = event.target
           if (input.files && input.files[0]) {
             const reader = new FileReader()
@@ -362,7 +358,6 @@ export default {
             }
             reader.readAsDataURL(input.files[0])
           }
-          // this.uploadingLogo = false
         } else {
           event.target.value = null
           this.$toast.error('File size should not be more than 2MB')
@@ -400,21 +395,17 @@ export default {
       const imageFile = file[0]
       if (file.length > 0) {
         if (!imageFile.type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
-        } // Max size of image is 5 MB
-        else if (imageFile.size > this.maxSize) {
+        } else if (imageFile.size > this.maxSize) {
           this.$toast.global.error(
             'Your file is too big! Please select an image under 2MB'
           )
         } else {
-          // Append file into FormData and turn file into image URL
           const img = new Image()
           img.src = URL.createObjectURL(imageFile)
           img.onload = () => {
             const width = img.naturalWidth
             const height = img.naturalHeight
-            // if (width <= 64 && height <= 64) {
             if (width === height) {
               this.faviconName = imageFile.name
               this.faviconIcon = img.src
@@ -422,11 +413,6 @@ export default {
             } else {
               this.$toast.global.error('Please upload a Square image.')
             }
-            /* else {
-              this.$toast.global.error(
-                'Maximum file dimension should be about 64 x 64.'
-              )
-            } */
           }
         }
       }

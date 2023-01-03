@@ -182,7 +182,6 @@ export default {
           password: this.password,
         })
         .then((r) => {
-          // this.$logout()
           this.$router.replace({ path: '/' })
         })
         .catch((e) => {

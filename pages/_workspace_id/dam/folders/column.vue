@@ -409,7 +409,6 @@ export default {
       })
     },
     onSelectionMoved(newParent) {
-      // selectionbar moves file only
       const files = this.selectedFiles
       if (!files.length) return
       if (parseInt(files[0].category_id) === parseInt(newParent.id)) {
@@ -687,16 +686,14 @@ export default {
           this.$emit('idle')
         })
     },
-    async handelScrollAssets(e) {
+    handelScrollAssets(e) {
       if (this.noMoreData || this.loading || this.clickDisabled) return
       const el = e.target
       if (!el) return
-      // const scrollTop = el.scrollTop
       const scrollPercent =
         (100 * el.scrollTop) / (el.scrollHeight - el.clientHeight)
       if (scrollPercent > 80) {
-        await this.getAssets()
-        // el.scrollTop = scrollTop
+        this.getAssets()
       }
     },
   },

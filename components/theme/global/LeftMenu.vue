@@ -546,13 +546,7 @@ ul.nav-main ul.nav-children li > .nav-link svg .fill-color{fill:  var(--submenu-
         }
       })
 
-      /* Navigation ----------------------- */
       $(document).ready(function () {
-        // $(document).on('click', '.nav-main > li', function () {
-        //   $('.nav-main > li').removeClass('active')
-        //   $(this).addClass('active')
-        // })
-        // Menu Active Class----------------
         $('.nav-main li a')
           .filter(function () {
             'use strict'

@@ -207,13 +207,7 @@
 </template>
 
 <script>
-import {
-  required,
-  // minLength,
-  maxLength,
-  email,
-  // sameAs,
-} from 'vuelidate/lib/validators'
+import { required, maxLength, email } from 'vuelidate/lib/validators'
 import routeParams from '~/mixins/routeParams'
 
 export default {
@@ -226,8 +220,6 @@ export default {
         name: '',
         email: '',
         phone: '',
-        // password: '',
-        // confirmPassword: '',
       },
       logo: { src: null, file: null },
       loading: false,
@@ -252,7 +244,6 @@ export default {
       formData.append('profile_image', this.logo.file)
       formData.append('name', this.user.name)
       formData.append('email', this.user.email)
-      // formData.append('password', this.user.password)
       formData.append('phone', this.user.phone)
       formData.append('workspace_id', this.routeWorkspaceId)
       formData.append('instance_id', this.routeInstanceId)
@@ -281,11 +272,9 @@ export default {
       } = target
 
       if (!file) {
-        // this.logo = { file: null, src: null }
         return
       }
       if (!file.type.match('image.*')) {
-        // check whether the upload is an image
         this.$toast.global.error('Please choose an image file')
         return
       }
@@ -311,8 +300,6 @@ export default {
       name: { required },
       email: { required, email },
       phone: { maxLength: maxLength(20) },
-      // password: { required, minLength: minLength(6) },
-      // confirmPassword: { required, sameAs: sameAs('password') },
     },
   },
 }

@@ -675,7 +675,6 @@
   </div>
 </template>
 <script>
-// import FileSaver from 'file-saver'
 import { required, numeric, decimal, or } from 'vuelidate/lib/validators'
 import Select2 from '~/components/plugins/Select2'
 export default {
@@ -796,7 +795,6 @@ export default {
           this.$toast.success(message)
           const link = document.createElement('a')
           link.setAttribute('target', '_blank')
-          // link.setAttribute('download', 'invoice.pdf')
           link.href = data.data.pdf_file
           link.click()
           link.remove()

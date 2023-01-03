@@ -21,11 +21,9 @@ export default {
     }
   },
 
-  // Checking if the token is provided then verifying it
   async mounted() {
     this.loading = true
     try {
-      // extracting the message if it gets 200 response
       const { message } = await this.$axios.$post(`email-verify/token`, {
         token: this.invitation_token,
       })
@@ -33,7 +31,6 @@ export default {
       this.message = message
       this.$toast.global.success(message)
     } catch (e) {
-      // else showing error
       this.loading = false
       this.message = this.$getErrorMessage(e)
       this.$toast.error(this.$getErrorMessage(e))

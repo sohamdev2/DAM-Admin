@@ -30,14 +30,6 @@ function templateResult(forSelection, obj, container) {
   }
 
   if (!image)
-    // return window.$(
-    //   "<span class='fl-as-imgtxt text-uppercase'>" +
-    //     initial +
-    //     '</span><p>' +
-    //     text +
-    //     '</p>'
-    // )
-
     return window.$(
       `<span class="fl-as-imgtxt text-uppercase ${initial.toLowerCase()}">${initial}</span><p>${text}</p>`
     )
@@ -57,8 +49,6 @@ export default {
     containerCssClass: String,
     lockBy: Number,
     dropdownCssClass: String,
-    /* containerCssClass: "multiple-xxxxxxxxx",
-    dropdownCssClass: "multiple-yyyyyyyyyy", */
     disabled: {
       type: Boolean,
       default: false,
@@ -98,7 +88,6 @@ export default {
           multiple: true,
           data: this.options,
           placeholder: this.placeholder,
-          // allowClear: true,
           containerCssClass: this.containerCssClass,
           dropdownCssClass: this.dropdownCssClass,
           templateSelection: templateResult.bind(this, true),
@@ -108,11 +97,6 @@ export default {
             const data = { results: [] }
             vue.term = query.term
             const term = vue.term && vue.term.toLocaleUpperCase()
-
-            // const ids = ($(vue.$el).val() || []).map((id) => String(id))
-            // const options = vue.options.filter(
-            //   ({ id }) => !ids.includes(String(id))
-            // );
             const options = [...vue.options]
 
             if (term) {
@@ -147,12 +131,9 @@ export default {
           },
         })
         .on('select2:select select2:unselect', function (e) {
-          // const data = e.params.data
-
           if (vue.customEvent) {
             vue.$emit('changeFollower', window.$(this).val())
           }
-          // this.$emit("input", data.id);
         })
         .prop('disabled', this.disabled)
         .val(this.value)

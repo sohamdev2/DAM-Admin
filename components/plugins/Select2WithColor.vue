@@ -51,15 +51,11 @@ export default {
   },
   watch: {
     value(value) {
-      /* $(this.$el)
-        .val(value)
-        .trigger("change"); */
       window
         .$(this.$el)
         .select2({
           data: this.options,
           placeholder: this.placeholder,
-          // allowClear: true,
           containerCssClass: this.containerCssClass,
           dropdownCssClass: this.dropdownCssClass,
           dropdownCss: '',
@@ -67,26 +63,16 @@ export default {
           adaptDropdownCssClass: '',
           templateSelection: customTemplate,
           templateResult: formatState,
-          // templateResult: custom_template,
         })
         .val(value)
         .trigger('change')
     },
     options(options) {
-      /* $(this.$el)
-        .select2({
-          data: options,
-          placeholder: this.placeholder
-        })
-        .val(this.value)
-        .trigger("change"); */
-
       window
         .$(this.$el)
         .select2({
           data: this.options,
           placeholder: this.placeholder,
-          // allowClear: true,
           containerCssClass: this.containerCssClass,
           dropdownCssClass: this.dropdownCssClass,
           dropdownCss: '',
@@ -94,7 +80,6 @@ export default {
           adaptDropdownCssClass: '',
           templateSelection: customTemplate,
           templateResult: formatState,
-          // templateResult: custom_template,
         })
         .val(this.value)
         .trigger('change')
@@ -109,7 +94,6 @@ export default {
       .select2({
         data: this.options,
         placeholder: this.placeholder,
-        // allowClear: true,
         containerCssClass: this.containerCssClass,
         dropdownCssClass: this.dropdownCssClass,
         dropdownCss: '',
@@ -117,7 +101,6 @@ export default {
         adaptDropdownCssClass: '',
         templateSelection: customTemplate,
         templateResult: formatState,
-        // templateResult: custom_template,
       })
       .val(this.value)
       .trigger('change')
@@ -127,7 +110,6 @@ export default {
         if (this.customEvent) {
           this.$emit('optionChangeHandler', data)
         }
-        // this.$emit("input", data.id);
       })
       .prop('disabled', this.disabled)
   },

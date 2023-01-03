@@ -132,7 +132,6 @@ export default {
     allowedToCancel() {
       if (!this.cancelReason?.id) return false
       return this.cancelComment?.length && this.cancelAcknowledged
-      // return this.cancelAcknowledged
     },
     billingCycle() {
       return this.subscription.billing_cycle === 'yearly'

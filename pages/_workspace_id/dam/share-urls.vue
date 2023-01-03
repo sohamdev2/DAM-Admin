@@ -304,14 +304,6 @@ export default {
         })
         .then((e) => {
           this.$toast.global.success(e.message)
-          /*  const removeUrls = []
-          this.$toast.global.success(e.message)
-          const removeUrls = []
-          for (const id of this.selectedIds) {
-            const url = this.urls.find((e) => e.id === id)
-            if (url.generated_source === 'user') url.is_active = 0
-            else removeUrls.push(id)
-          }  */
           this.urls = this.urls.filter((e) => !this.selectedIds.includes(e.id))
           this.selectedIds = []
           this.allSelected = false

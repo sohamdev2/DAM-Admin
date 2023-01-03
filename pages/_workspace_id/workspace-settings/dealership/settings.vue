@@ -98,13 +98,7 @@ export default {
       isActive: false,
     }
   },
-  // watch: {
-  //   isActive() {
-  //     this.updateActive()
-  //   },
-  // },
   mounted() {
-    // this.$setPageTitle('Organization Settings', false)
     this.getDealerNumber()
   },
   methods: {
@@ -117,10 +111,8 @@ export default {
           },
         })
         this.myData = true
-        // if (data.dealership_number != null) {
         this.dealership_number = data.dealership_no
         this.isActive = data.dealership_no_status
-        // }
       } catch (e) {
         const { data } = e.response
         this.$toast.error(data.message)

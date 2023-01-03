@@ -302,7 +302,6 @@ export default {
         return
       }
       if (!file.type.match('image.*')) {
-        // check whether the upload is an image
         this.$toast.global.error('Please choose an image file')
         this.reset()
         return

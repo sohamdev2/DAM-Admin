@@ -449,26 +449,21 @@ export default {
       const imageFile = file[0]
       if (file.length > 0) {
         if (!imageFile.type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
-        } // Max size of image is 5 MB
-        else if (imageFile.size > this.maxSize) {
+        } else if (imageFile.size > this.maxSize) {
           this.$toast.global.error(
             'Your file is too big! Please select an image under 2MB'
           )
         } else {
-          // Append file into FormData and turn file into image URL
           const img = new Image()
           img.src = URL.createObjectURL(imageFile)
           img.onload = () => {
             const width = img.naturalWidth
             const height = img.naturalHeight
-            // if (width <= 64 && height <= 64) {
             if (width === height) {
               this.faviconName = imageFile.name
               this.faviconIcon = img.src
               this.faviconIconStore = imageFile
-              // this.companyFaviconUpdate()
             } else {
               this.$toast.global.error('Please upload a Square image.')
             }
@@ -506,7 +501,6 @@ export default {
 
       const response = await this.$axios
         .$post('digital-assets/instance/create', formData)
-        // .catch((e) => this.$toast.global.error(this.$getErrorMessage(e)))
         .catch((e) => {
           const {
             error: { brand_name = [], url = [] },

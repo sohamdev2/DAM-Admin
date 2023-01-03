@@ -484,7 +484,6 @@ export default {
       )
     },
     breadcrumbs: (item1) => (item1) => {
-      // this.breadcrumb = item1
       const breadcrumbs = []
 
       const recursivePush = (item, array) => {

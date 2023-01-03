@@ -631,9 +631,7 @@ export default {
         .then((r) => {
           this.wpDamAdminCount = r.data.dam_admin_count
         })
-        .catch((e) => {
-          // caught!
-        })
+        .catch((_) => {})
     },
     fetchWorkspaceSubscription(wp) {
       if (!wp) {
@@ -643,9 +641,7 @@ export default {
       this.$axios
         .$get('digital-assets/subscription/get')
         .then(({ data }) => (this.wpSubscription = data))
-        .catch((e) => {
-          // caught!
-        })
+        .catch((_) => {})
     },
     checkUserExists() {
       if (this.form.email !== '' && !this.$v.form.email.$error) {
@@ -686,29 +682,6 @@ export default {
           document.getElementById(
             'role_' + windex + '_' + moduleIndex
           ).innerHTML = ''
-
-          // if (module.module_id === 1) {
-          //   this.form.allowedWorkspace[windex].modules[
-          //     moduleIndex
-          //   ].departments = 0
-          //   document.getElementById(
-          //     'dep_' + windex + '_' + moduleIndex
-          //   ).innerHTML = ''
-          //   $('#depSection_' + windex + '_' + moduleIndex).css(
-          //     'display',
-          //     'none'
-          //   )
-          //   this.form.allowedWorkspace[windex].modules[
-          //     moduleIndex
-          //   ].client_id = 0
-          //   $('#clientSection_' + windex + '_' + moduleIndex).css(
-          //     'display',
-          //     'none'
-          //   )
-          //   this.form.allowedWorkspace[windex].modules[
-          //     moduleIndex
-          //   ].isClientDepartment = false
-          // }
         })
         document.getElementById('module_' + windex).innerHTML = ''
         $('#moduleSection_' + windex).css('display', 'none')
@@ -720,16 +693,6 @@ export default {
           .checked
       ) {
         $('#roleSection_' + windex + '_' + wModuleIndex).css('display', 'block')
-        // if (moduleId === 1) {
-        //   $('#depSection_' + windex + '_' + wModuleIndex).css(
-        //     'display',
-        //     'block'
-        //   )
-        //   document.getElementById(
-        //     'dep_' + windex + '_' + wModuleIndex
-        //   ).innerHTML = 'Must Select Work Type'
-        // }
-
         this.$refs.workspaceMessage.innerHTML = ''
         document.getElementById(
           'role_' + windex + '_' + wModuleIndex
@@ -743,23 +706,6 @@ export default {
           'role_' + windex + '_' + wModuleIndex
         ).innerHTML = ''
         document.getElementById('module_' + windex).innerHTML = ''
-        // if (moduleId === 1) {
-        //   this.form.allowedWorkspace[windex].modules[
-        //     wModuleIndex
-        //   ].departments = 0
-        //   document.getElementById(
-        //     'dep_' + windex + '_' + wModuleIndex
-        //   ).innerHTML = ''
-        //   $('#depSection_' + windex + '_' + wModuleIndex).css('display', 'none')
-        //   this.form.allowedWorkspace[windex].modules[
-        //     wModuleIndex
-        //   ].isClientDepartment = false
-        //   this.form.allowedWorkspace[windex].modules[wModuleIndex].client_id = 0
-        //   $('#clientSection_' + windex + '_' + wModuleIndex).css(
-        //     'display',
-        //     'none'
-        //   )
-        // }
         $('#roleSection_' + windex + '_' + wModuleIndex).css('display', 'none')
       }
     },
@@ -990,11 +936,8 @@ export default {
         formData.append('profile_image', this.form.profile_image)
         formData.append('name', this.form.name)
         formData.append('email', this.form.email)
-        /* formData.append('password', this.form.password) */
         formData.append('phone', this.form.phone)
         formData.append('title', this.form.title)
-        /* formData.append('capacity_hour', this.form.capacity_hour)
-        formData.append('salary', this.form.salary) */
         formData.append(
           'allowedWorkspace',
           JSON.stringify(this.form.allowedWorkspace)
@@ -1023,11 +966,9 @@ export default {
       }
     },
     profileChange(event) {
-      // const testSize = 7000
       const twoMb = 2097152
       if (event.target.files[0]) {
         if (!event.target.files[0].type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
           return
         }
@@ -1035,15 +976,10 @@ export default {
           this.form.profile_image = event.target.files[0]
           const input = event.target
           if (input.files && input.files[0]) {
-            // create a new FileReader to read this image and convert to base64 format
             const reader = new FileReader()
-            // Define a callback function to run, when FileReader finishes its job
             reader.onload = (e) => {
-              // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-              // Read image as base64 and set to imageData
               this.imageData = e.target.result
             }
-            // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0])
           }
         } else {

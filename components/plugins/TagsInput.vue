@@ -34,18 +34,6 @@ export default {
         .find('.bootstrap-tagsinput > input')
         .attr('disabled', a)
     },
-    value(value) {
-      // if (this.doneInit && !this.imutable) {
-      //   const $input = window.$(this.$el).find('[data-role="tagsinput"]');
-      //   let tags = $input.tagsinput("items");
-      //   let tagsToRemove = tags.filter(tag =>
-      //     value.find(({ id }) => id != tag.id)
-      //   );
-      //   let tagsToAdd = value.filter(tag =>
-      //     tags.find(({ id }) => id != tag.id)
-      //   );
-      // }
-    },
   },
   mounted() {
     this.$nextTick(() => {

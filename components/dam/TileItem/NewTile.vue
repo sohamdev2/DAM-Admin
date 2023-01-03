@@ -253,14 +253,6 @@ export default {
     },
   },
   methods: {
-    // boundaries({ cropper, imageSize }) {
-    // Restrict zoom out to default min size
-    //   console.log(cropper)
-    //   return {
-    //     width: cropper.clientWidth,
-    //     height: cropper.clientHeight,
-    //   }
-    // },
     zoom(factor) {
       this.$refs.vueCropper.zoom(factor)
     },
@@ -290,7 +282,6 @@ export default {
 
       if (!file) return
       if (!file.type.match('image.*')) {
-        // check whether the upload is an image
         this.$toast.global.error('Please choose an image file')
         return
       }
@@ -336,11 +327,6 @@ export default {
       const myInit = {
         method: 'HEAD',
         mode: 'no-cors',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        //   'X-Requested-With': 'XMLHttpRequest',
-        //   'Access-Control-Allow-Origin': '*',
-        // },
       }
 
       let myRequest
@@ -442,9 +428,6 @@ export default {
   transition: height 240ms cubic-bezier(0.165, 0.84, 0.844, 1) !important;
 }
 .upload-img-preview .bg-img {
-  /* background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
   display: block;
   max-width: 100%;
 }

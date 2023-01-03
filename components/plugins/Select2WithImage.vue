@@ -13,13 +13,6 @@ function customTemplate(obj) {
 
   if (obj.id !== 0) {
     if (!image) {
-      // const template = window.$(
-      //   "<span class='fl-as-imgtxt text-uppercase'>" +
-      //     text.charAt(0) +
-      //     '</span><p>' +
-      //     text +
-      //     '</p>'
-      // )
       const template = window.$(
         `<span class="fl-as-imgtxt text-uppercase ${text
           .charAt(0)
@@ -138,7 +131,6 @@ export default {
       if (this.customEvent) {
         this.$emit('optionChangeHandler', data)
       }
-      // this.$emit("input", data.id);
     })
 
     initSelect2.prop('disabled', this.disabled)

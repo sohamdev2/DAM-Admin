@@ -799,13 +799,11 @@
 <script>
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 import { find } from 'lodash'
-// import { ContentLoader } from 'vue-content-loader'
 import Select2 from '~/components/plugins/Select2'
 import Select2Multiple from '~/components/plugins/Select2Multiple'
 
 export default {
   components: {
-    // ContentLoader,
     Select2,
     Select2Multiple,
   },
@@ -872,7 +870,6 @@ export default {
     },
   },
   async mounted() {
-    // this.$setPageTitle('My Profile', true)
     this.loadJS()
     try {
       const { data } = await this.$axios.$get('all-time-zone')
@@ -887,7 +884,6 @@ export default {
 
   methods: {
     loadJS() {
-      /* Profile Workspace */
       window.$(function () {
         window
           .$('.profile-access-box .workspace-access-title input')
@@ -988,7 +984,6 @@ export default {
           email: this.email,
           title: this.title,
           timezone: this.timezone,
-          // enable_notification: Number(this.enable_notification),
           default_workspace: this.default_workspace,
           default_department: this.default_department,
         })
@@ -1007,7 +1002,6 @@ export default {
       const twoMB = 2097152
       if (event.target.files[0]) {
         if (!event.target.files[0].type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
           return
         }

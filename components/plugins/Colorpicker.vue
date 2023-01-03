@@ -60,10 +60,7 @@ export default {
             this.inputEmitCall = false
           }
         }
-
-        // document.body.style.background = val;
       } else {
-        // this.colorValue = '#000000'
         this.updateColors('#000000')
         this.$emit('input', '#000000')
       }

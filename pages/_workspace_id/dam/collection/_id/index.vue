@@ -309,7 +309,6 @@ export default {
       mode: 'tile', // [tile, list] Style
       loading: true,
       deleting: false,
-      // dropdown feature
       resource: [],
       resourceType: null,
     }
@@ -340,18 +339,15 @@ export default {
     selectAll() {
       this.selectedFiles = [...this.files]
     },
-    // after sorting refresh asset list
     prefetch() {
       this.deleting = false
       this.getCollectionAssets()
       this.selectedFiles = []
       this.selectedFolders = []
     },
-    // grid list view
     changeView(data) {
       this.mode = data
     },
-    // delete from drop
     deleteFromDrop() {
       if (this.deleting) return
       this.deleting = true
@@ -372,7 +368,6 @@ export default {
           this.deleting = false
         })
     },
-    // get collection's assets list
     async getCollectionAssets() {
       this.loading = true
       const body = {
@@ -395,9 +390,7 @@ export default {
           this.$toast.global.error(this.$getErrorMessage(error))
         )
     },
-    // dropdown functionality
     dropDown(file, type, resourceType) {
-      // this.selectedFiles = []
       this.resourceType = resourceType
       this.resource = [file]
 

@@ -29,7 +29,7 @@
 import routeParams from '~/mixins/routeParams'
 
 export default {
-  mixins: [routeParams], // currentRouteName, routeWorkspaceId, routeInstanceId
+  mixins: [routeParams],
   data() {
     return {
       internal_workspace_id: this.$route.params.workspace_id

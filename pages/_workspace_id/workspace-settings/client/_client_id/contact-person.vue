@@ -1092,11 +1092,6 @@ export default {
           workspace_id: this.internal_workspace_id,
         }
         await this.$axios.$post('client/add_update_invite-people', reQData)
-        /* this.people = data.contactPerson.map((data) => ({
-          ...data,
-          editMode: false,
-        }))
-        this.editMode = this.people */
         this.getContactPersonList()
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
@@ -1153,12 +1148,8 @@ export default {
             show_in_list: this.$v.editMode.$each[index].show_in_list.$model,
           }
         )
-        // this.people[index].user_id = data.user_id
-        // this.people[index].user_or_not = data.user_or_not
         this.getContactPersonList()
         this.$toast.global.success(message)
-
-        /*  this.people = this.editMode  */
         this.closeAllEdit()
         this.updating = false
       } catch (e) {
@@ -1268,11 +1259,6 @@ export default {
           )
           this.addPeople = []
           this.people = []
-          /* this.people = data.contactPerson.map((data) => ({
-            ...data,
-            editMode: false,
-          }))
-          this.editMode = this.people */
           this.getContactPersonList()
           this.$toast.global.success(message)
 
@@ -1352,7 +1338,6 @@ export default {
           },
         },
         full_name: { required },
-        /* phone_number: { required, maxLength: maxLength(20) }, */
         phone_number: {},
         user_or_not: {},
         show_in_list: {},
@@ -1365,7 +1350,6 @@ export default {
         title: {},
         email: { required, email },
         full_name: { required },
-        /* phone_number: { required, maxLength: maxLength(20) }, */
         phone_number: {},
         user_or_not: {},
         show_in_list: {},

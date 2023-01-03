@@ -134,7 +134,6 @@
   </div>
 </template>
 <script>
-import $ from 'jquery'
 import { required } from 'vuelidate/lib/validators'
 import WorkspaceNote from '~/components/theme/settings/WorkspaceNote'
 import Select2Multiple from '~/components/plugins/Select2Multiple'
@@ -164,11 +163,7 @@ export default {
       imageData: null,
     }
   },
-  updated() {
-    this.loadJs()
-  },
   async mounted() {
-    this.loadJs()
     try {
       const { data } = await this.$axios.$get(
         `/user/group/user-list?workspace_id=${this.form.internal_workspace_id}`
@@ -181,15 +176,6 @@ export default {
     }
   },
   methods: {
-    loadJs() {
-      function dashboard() {
-        const gsb = $('.general-settings-box').outerHeight()
-        const tt = $('.general-settings-box .top-title').outerHeight()
-        const wab = gsb - (tt + 40)
-        $('.general-settings-box .customscrollbar').height(wab)
-      }
-      dashboard()
-    },
     groupUsersChangeHandler(data) {
       this.form.groupUsers = data === null ? [] : data
     },
@@ -222,11 +208,9 @@ export default {
       }
     },
     profileChange(event) {
-      // const testSize = 7000
       const twoMb = 2097152
       if (event.target.files[0]) {
         if (!event.target.files[0].type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
           return
         }
@@ -234,15 +218,10 @@ export default {
           this.form.groupIcon = event.target.files[0]
           const input = event.target
           if (input.files && input.files[0]) {
-            // create a new FileReader to read this image and convert to base64 format
             const reader = new FileReader()
-            // Define a callback function to run, when FileReader finishes its job
             reader.onload = (e) => {
-              // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-              // Read image as base64 and set to imageData
               this.imageData = e.target.result
             }
-            // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0])
           }
         } else {

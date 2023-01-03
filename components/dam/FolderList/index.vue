@@ -212,7 +212,6 @@ export default {
     },
     folders() {
       if (this.search.trim() && this.allFolders)
-        // eslint-disable-next-line camelcase
         return [...this.folderList].filter(({ folder_name }) =>
           stringToRegex(this.search).test(folder_name)
         )
@@ -281,10 +280,6 @@ export default {
   },
   asyncComputed: {
     async allFolders() {
-      // if (this.storeUpdated) {
-      //   this.storeUpdated = false
-      //   return this.cachedFolders
-      // }
       this.cachedFolders = await new Promise((resolve, reject) => {
         const makeFolders = (folders, parent) => {
           const sortFolders = [...folders].sort(
@@ -335,10 +330,6 @@ export default {
           return makeFolders(this.folderList)
 
         fetchFolder(this.selectedParentId)
-
-        // if (this.parentFolder?.sub_category_data?.length)
-        //   makeFolders(this.parentFolder.sub_category_data, this.parentFolder)
-        // else fetchFolder(this.parentFolder.parent_id)
       })
         .catch((e) => {
           this.$toast.global.error(this.$getErrorMessage(e))
@@ -351,7 +342,6 @@ export default {
   },
   methods: {
     onCategoryUpdate({ files = [], folders = [], categoryId } = {}) {
-      // if (!folders.length) return
       if (parseInt(categoryId) === parseInt(this.hashParam)) {
         const _folders = folders.filter(
           (f) =>
@@ -390,7 +380,6 @@ export default {
         this.model = folder.id
       }
     },
-    // left pannel folder dropdown feature
     fromPanel(folder, type, resourceType) {
       this.$emit('selectFromPanel', folder, type, resourceType)
     },

@@ -299,7 +299,6 @@ export default {
 
       if (!file) return
       if (!file.type.match('image.*')) {
-        // check whether the upload is an image
         this.$toast.global.error('Please choose an image file')
         return
       }
@@ -373,7 +372,6 @@ export default {
 
       const postData = new FormData()
       postData.append('title', this.tile.title.substring(0, 30))
-      // postData.append('image', this.tile.blob)
       postData.append('instance_id', this.routeInstanceId)
       postData.append('workspace_id', this.routeWorkspaceId)
       postData.append('description', this.tile.description)
@@ -382,11 +380,6 @@ export default {
       postData.append('is_active', ~~this.tile.is_active)
       postData.append('image_name', this.tile.image_name)
 
-      // if (this.tile.blob === null) {
-      //   postData.delete('image')
-      // } else {
-      //   postData.append('image', this.tile.blob)
-      // }
       const { canvas } = this.$refs.vueCropper.getResult()
       if (!canvas) {
         this.$toast.global.error('Could not update banner. Please try again.')

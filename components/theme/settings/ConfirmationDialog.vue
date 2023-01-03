@@ -71,8 +71,6 @@
 </template>
 
 <script>
-// import $ from 'jquery'
-
 import ValueModel from '@/components/theme/settings/ValueModel'
 
 export default {

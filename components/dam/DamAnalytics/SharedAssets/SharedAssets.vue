@@ -1342,8 +1342,6 @@ export default {
           {
             from_date: this.startDate,
             to_date: this.endDate,
-            /* sort_value: this.sort_value,
-            sort_by: this.sort_by, */
             user_type: userType,
           }
         )
@@ -1351,7 +1349,6 @@ export default {
           this.lastPage = data.last_page
 
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.sharedUrlList.push(
                 ...data.data.map((item) => ({
@@ -1362,7 +1359,6 @@ export default {
                 }))
               )
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -1392,15 +1388,12 @@ export default {
           {
             from_date: this.startDate,
             to_date: this.endDate,
-            /* sort_value: this.sort_value,
-            sort_by: this.sort_by, */
             user_type: userType,
           }
         )
         .then(({ data }) => {
           this.lastPage = data.last_page
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.sharedUrlList.push(
                 ...data.data.map((item) => ({
@@ -1411,7 +1404,6 @@ export default {
                 }))
               )
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -1456,7 +1448,6 @@ export default {
               this.sharedUrlList[index].assetsList = data.map((item) => ({
                 ...item,
                 assetsVersionList: [],
-                // categoryVersionList: [],
                 expand: false,
               }))
             } else {
@@ -1465,7 +1456,6 @@ export default {
                   (item) => ({
                     ...item,
                     assetsVersionList: [],
-                    // categoryVersionList: [],
                     expand: false,
                   })
                 )
@@ -1475,7 +1465,6 @@ export default {
                   (item) => ({
                     ...item,
                     assetsVersionList: [],
-                    // categoryVersionList: [],
                     expand: false,
                   })
                 )
@@ -1493,46 +1482,6 @@ export default {
       sharedId,
       file
     ) {
-      /* if (file.sub_category_count + file.total_assets > 0) {
-        this.sharedUrlList[urlIndex].categoryList[assetsIndex].expand =
-          !this.sharedUrlList[urlIndex].categoryList[assetsIndex].expand
-        if (this.sharedUrlList[urlIndex].categoryList[assetsIndex].expand) {
-          this.sharedUrlList[urlIndex].categoryList[
-            assetsIndex
-          ].assetsVersionList = []
-          await this.$axios
-            .$post('digital-assets/analytics/non-collection-share-url-folder', {
-              category_id: file.id,
-              share_id: sharedId,
-            })
-            .then(({ data }) => {
-              if (data.assets && data.assets.length) {
-                this.sharedUrlList[urlIndex].categoryList[
-                  assetsIndex
-                ].assetsVersionList = data.assets.map((item) => ({
-                  ...item,
-                  assetsVersion2List: [],
-                  expand: false,
-                }))
-              }
-              if (data.category && data.category.length) {
-                this.sharedUrlList[urlIndex].categoryList.push(
-                  ...data.category.map((item) => ({
-                    ...item,
-                    assetsVersionList: [],
-                    // categoryVersionList: [],
-                    expand: false,
-                  }))
-                )
-                /!* this.sharedUrlList[urlIndex].categoryList[
-                  assetsIndex
-                ].categoryVersionList = data.category *!/
-              }
-              this.assetsVersionDynamicIndex = null
-            })
-            .catch(this.$errorToast)
-        }
-      } else { */
       this.sharedUrlList[urlIndex].assetsList[assetsIndex].expand =
         !this.sharedUrlList[urlIndex].assetsList[assetsIndex].expand
       if (this.sharedUrlList[urlIndex].assetsList[assetsIndex].expand) {
@@ -1553,75 +1502,7 @@ export default {
           })
           .catch(this.$errorToast)
       }
-      // }
     },
-    /* async getAssetsVersionDetails(
-      urlIndex,
-      assetsIndex,
-      assetsVersionIndex,
-      sharedId,
-      assetsId,
-      file
-    ) {
-      if (file.sub_category_count + file.total_assets > 0) {
-        this.sharedUrlList[urlIndex].categoryList[
-          assetsIndex
-        ].assetsVersionList[assetsVersionIndex].expand =
-          !this.sharedUrlList[urlIndex].categoryList[assetsIndex]
-            .assetsVersionList[assetsVersionIndex].expand
-        if (
-          this.sharedUrlList[urlIndex].categoryList[assetsIndex]
-            .assetsVersionList[assetsVersionIndex].expand
-        ) {
-          !this.sharedUrlList[urlIndex].categoryList[assetsIndex]
-            .assetsVersionList.length &&
-            (this.assetsVersionDynamicIndex = assetsVersionIndex)
-          await this.$axios
-            .$post('digital-assets/analytics/non-collection-share-url-folder', {
-              category_id: file.id,
-              share_id: sharedId,
-            })
-            .then(({ data }) => {
-              if (data.assets && data.assets.length) {
-                this.sharedUrlList[urlIndex].categoryList[
-                  assetsIndex
-                ].assetsVersionList[assetsVersionIndex] = data.assets
-              }
-              this.assetsVersionDynamicIndex = null
-            })
-            .catch(this.$errorToast)
-        }
-      } else {
-        this.sharedUrlList[urlIndex].categoryList[
-          assetsIndex
-        ].assetsVersionList[assetsVersionIndex].expand =
-          !this.sharedUrlList[urlIndex].categoryList[assetsIndex]
-            .assetsVersionList[assetsVersionIndex].expand
-        if (
-          this.sharedUrlList[urlIndex].categoryList[assetsIndex]
-            .assetsVersionList[assetsVersionIndex].expand
-        ) {
-          !this.sharedUrlList[urlIndex].categoryList[assetsIndex]
-            .assetsVersionList.length &&
-            (this.assetsVersionDynamicIndex = assetsVersionIndex)
-          await this.$axios
-            .$post(
-              'digital-assets/analytics/share-url-assets-version-details',
-              {
-                asset_id: file.id,
-                share_id: sharedId,
-              }
-            )
-            .then(({ data }) => {
-              this.sharedUrlList[urlIndex].categoryList[
-                assetsIndex
-              ].assetsVersionList[assetsVersionIndex].assetsVersion2List = data
-              this.assetsVersionDynamicIndex = null
-            })
-            .catch(this.$errorToast)
-        }
-      }
-    }, */
   },
 }
 </script>

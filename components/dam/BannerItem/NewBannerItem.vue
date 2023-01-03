@@ -283,7 +283,6 @@ export default {
         return
       }
       if (!file.type.match('image.*')) {
-        // check whether the upload is an image
         this.$toast.global.error('Please choose an image file')
         return
       }
@@ -351,7 +350,6 @@ export default {
         })
     },
     async onSubmit() {
-      /* if (this.adding || !this.banner.url) return */
       if (this.banner.url?.length) {
         if (!(await this.urlCheck(this.banner.url))) {
           this.urlValidation = true
@@ -417,9 +415,6 @@ export default {
   transition: height 240ms cubic-bezier(0.165, 0.84, 0.844, 1) !important;
 }
 .upload-img-preview .bg-img {
-  /* background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
   display: block;
   max-width: 100%;
 }

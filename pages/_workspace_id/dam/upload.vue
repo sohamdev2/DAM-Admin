@@ -1042,10 +1042,4 @@ export default {
 .exists {
   height: calc(100vh - 170px) !important;
 }
-.common-box.completed > .mini-upload-list {
-  /* height: calc(100vh - 432px); */
-}
-.common-box > .mini-upload-list {
-  /* height: calc(100vh - 412px); */
-}
 </style>

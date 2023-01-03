@@ -420,21 +420,15 @@ export default {
     return {
       files: [],
       subFolders: [],
-      // ** UI **
       mode: 'tile', // [tile, list] Style
-
-      // loaders
       loading: false,
       gettingFolders: false,
       deleting: false,
-      // pagination
       page: 1,
       lastPage: -1,
       localPage: 1,
       breadcrumb: null,
-
       totalApiAssets: null,
-      // dropdown feature
       resource: [],
       resourceType: null,
       parentHistory: [],
@@ -453,7 +447,6 @@ export default {
     isTrash() {
       return this.$route.name.search('trash')
     },
-    // folders that are open in panel view
     activeSelection() {
       return this.$store.state.dam.activeSelection
     },
@@ -513,7 +506,6 @@ export default {
           })
           .then(({ data }) => {
             folder = data
-            // this.$store.commit('dam/setFolderItem', data)
           })
           .catch(() => {
             const route = {
@@ -524,8 +516,6 @@ export default {
             if (this.parentFolder) route.hash = `#${this.parentFolder}`
             this.$router.replace(route)
           })
-      // .catch(e => this.$toast.global.error(this.$getErrorMessage(e)));
-      // .finally(() => (this.loading = false));
       return folder || null
     },
   },
@@ -548,7 +538,6 @@ export default {
         }
         this.page = 1
         this.getData()
-        // this.getFolderData()
         this.$store.dispatch('dam/columnViews/clear', { from: 0 })
       }
       let view = ''
@@ -622,9 +611,6 @@ export default {
   },
   mounted() {
     this.getData()
-    // this.$bus.$on('firstFolder', () => {
-    //   this.getData()
-    // })
     this.$nuxt.$on(
       'update-category',
       ({ files = [], folders = [], categoryId } = {}) => {
@@ -644,16 +630,6 @@ export default {
           if (isColumnView) {
             const columns = this.$store.state.dam.columnViews
             column = columns[columns.length - 1]
-            // if (
-            //   column.folders
-            //     .map((e) => parseInt(e.id))
-            //     .includes(parseInt(this.hashParam))
-            // ) {
-            //   await this.$store.dispatch('dam/columnViews/add', {
-            //     parentFolderId: column.active,
-            //   })
-            //   column = columns[columns.length - 1]
-            // }
           }
           for (const file of _files) {
             this.files.unshift(file)
@@ -702,7 +678,6 @@ export default {
         this.resource = []
       }
     },
-    // moving of files and clearing of selected files information
     selectedFilesRemoval(moveTo) {
       if (this.isFolder || this.hashParam === 'uncategorized') {
         this.removeSelectedFiles(moveTo)
@@ -711,7 +686,6 @@ export default {
         this.selectedFiles = []
       }
     },
-    // copy of assets feature
     updatedFolderData(selectedFolderData) {
       const activeSelectionList = this.activeSelection
       selectedFolderData.map(async (item) => {
@@ -791,12 +765,7 @@ export default {
       })
       this.selectNone()
     },
-    // folder name updation in panel view
     updateFolderName(folderData, newName) {
-      // const folder = this.$store.state.dam.folderList.find(e=>e.id===folderData.Id)
-      // if (folder) {
-      //   this.$store.state.dam.folderList.find(e=>e.id===folderData.Id).folder_name = newName
-      // }
       this.updateBreadcrumbs(folderData.id, newName)
     },
     updateBreadcrumbs(folderId, newName, root = this.breadcrumb) {
@@ -821,7 +790,6 @@ export default {
       })
       this.files = JSON.parse(JSON.stringify(files))
     },
-    // dropdown functionality
     dropDown(file, type, resourceType) {
       this.resourceType = resourceType
       this.resource = [file]
@@ -841,7 +809,6 @@ export default {
         this.$refs.deleteDialog.show()
       }
     },
-    // delete action from drop
     deleteFromDrop() {
       this.deleting = true
       const fileId = this.resourceType === 'file' ? this.resource[0].id : null
@@ -917,9 +884,6 @@ export default {
       this.noMoreData = false
       this.getData()
     },
-    /**
-     * Add newly added folders
-     */
     async addNotInCurrent() {
       if (!this.hashParam) {
         const sortValue = this.sorting.subFolders.field
@@ -1292,7 +1256,6 @@ export default {
         this.loadResources()
       }
     },
-    // moving of the files from one folder to another
     async removeSelectedFiles2(moveTo) {
       if (this.lastPage > 1) return this.prefetch()
 
@@ -1300,10 +1263,8 @@ export default {
 
       let movedFile = this.resourceType ? this.resource : this.selectedFiles
       const fileIds = movedFile.map(({ id }) => id)
-      // console.log(this.selectedFiles, fileIds)
 
       if (this.parentOfselected !== null && this.resource.length === 0) {
-        // console.log('store if')
         const indexOfOwnParent = activeSelectionList.indexOf(
           this.parentOfselected
         )
@@ -1341,7 +1302,6 @@ export default {
         .then(({ data }) => {
           if (data) {
             if (parseInt(this.hashParam) === moveTo.id) {
-              // console.log('same')
               const sortValueFolders =
                 this.sorting.subFolders.field === 'display_file_name'
                   ? 'folder_name'
@@ -1403,7 +1363,6 @@ export default {
             })
             if (parseInt(this.hashParam) !== moveTo.id) {
               this.files = this.files.filter(({ id }) => !fileIds.includes(id))
-              // console.log(this.files)
             }
             movedFile = []
             this.selectNone()
@@ -1417,10 +1376,8 @@ export default {
       const activeSelectionList = this.activeSelection
       let movedFile = this.resourceType ? this.resource : this.selectedFiles
       const fileIds = movedFile.map(({ id }) => id)
-      // console.log(this.selectedFiles, fileIds)
 
       if (this.parentOfselected !== null && this.resource.length === 0) {
-        // console.log('store if')
         const indexOfOwnParent = activeSelectionList.indexOf(
           this.parentOfselected
         )
@@ -1458,7 +1415,6 @@ export default {
           )
           .then(({ data }) => {
             if (parseInt(this.hashParam) === moveTo.id) {
-              // console.log('same')
               const sortValueFolders =
                 this.sorting.subFolders.field === 'display_file_name'
                   ? 'folder_name'
@@ -1521,22 +1477,17 @@ export default {
           })
         if (parseInt(this.hashParam) !== moveTo.id) {
           this.files = this.files.filter(({ id }) => !fileIds.includes(id))
-          // console.log(this.files)
         }
         movedFile = []
         this.selectNone()
       }
     },
     removeFiles(...files) {
-      // if (this.lastPage > 1) return this.prefetch()
-
       const fileIds = files.map(({ id }) => id)
       this.files = this.files.filter(({ id }) => !fileIds.includes(id))
       this.selectedFiles = []
 
       this.noData = !this.files.length && !this.subFolders.length
-
-      // this.getData();
     },
 
     // delete folders
@@ -1561,25 +1512,14 @@ export default {
       this.totalFoldersCount = this.folderList.length
     },
     async getData() {
-      // this.loading = true
-      // empty all array
       this.subFolders = []
       this.files = []
       this.selectNone()
 
       if (!this.hashParam) {
         this.$store.dispatch('dam/columnViews/clear', { from: 0 })
-
-        // if (!this.folderList.length) {
         await this.getFolders()
-        // }
         this.subFolders = makeFolder(this.folderList)
-
-        // const fol = this.subFolders.map((ev) => ({ folder: ev }))
-        // const currentFolderId = null
-        // const parentFolderId = null
-        // this.$store.dispatch('dam/columnView', { fol, currentFolderId })
-        // this.$store.dispatch('dam/activeSelectionArray', parentFolderId)
       } else if (this.hashParam === 'search' && this.$route.params.hasFilters)
         await this.getSearchResult({ page: 1 })
       else if (this.isFolder) {
@@ -1594,8 +1534,6 @@ export default {
           name: 'workspace_id-dam-folders',
           params: { workspace_id: this.$getWorkspaceId() },
         })
-
-      // this.loading = false
     },
     getCategoryItems() {
       if (this.loading || this.noMoreData) return
@@ -1800,12 +1738,6 @@ export default {
   transform: translateY(100%);
   opacity: 0;
 }
-/* .folder-transition-leave-active,
-.folder-transition-enter-active {
-  position: absolute;
-  left: 0;
-  right: 0;
-} */
 .folder-transition-leave {
   transform: translateY(0);
   opacity: 1;

@@ -19,9 +19,4 @@ export default {
 }
 </script>
 
-<style>
-/* #doughnut-chart {
-  width: 100% !important;
-  height: 100% !important;
-} */
-</style>
+<style scoped></style>

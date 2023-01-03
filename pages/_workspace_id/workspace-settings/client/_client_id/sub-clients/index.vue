@@ -681,9 +681,6 @@ export default {
         return ` url(${client.display_company_logo})`
       } else {
         return `url(${this.buildingImage})`
-        /* return ` url('https://ui-avatars.com/api/?name=${encodeURI(
-          client.company_name
-        )}&size=128&background=F8F9Fa&font-size=0.7&bold=true')` */
       }
     },
 
@@ -705,14 +702,12 @@ export default {
           this.show_add_client_btn = data.show_add_client_btn
 
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.clients.push(...data.data)
               setTimeout(() => {
                 this.tableListScrolling()
               }, 50)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -768,7 +763,6 @@ export default {
       }
     },
     changeClientTypeFilter(data) {
-      // this.search_term = "";
       this.sort_value = ''
       this.sort_by = 'ASC'
       this.clientTypeId = data.id

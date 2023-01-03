@@ -186,7 +186,6 @@ export default {
     getCurrentFolderName() {
       return this.currentFolderName
     },
-    // left pannel folder dropdown feature
     fromPanel(folder, type, resourceType) {
       this.$emit('selectFromPanel', folder, type, resourceType)
     },

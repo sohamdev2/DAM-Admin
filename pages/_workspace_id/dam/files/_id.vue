@@ -2723,7 +2723,6 @@ export default {
         this.reloadAssetData()
       }
     },
-    // close icon visible on uploaded data
     assetsUploadSuccessful(versionData) {
       this.afterUpload = true
       this.uploadHeight = false
@@ -2731,7 +2730,6 @@ export default {
       this.newVersionData = versionData
       this.reloadAssetData()
     },
-    // upload new version data
     assetsUpload(file, xhr, formData) {
       formData.append('workspace_id', this.$getWorkspaceId())
       formData.append('url_workspace_id', this.$route.params.workspace_id)
@@ -2743,14 +2741,12 @@ export default {
       this.version = true
       this.uploadHeight = true
     },
-    // reset dropzone counts
     reset() {
       this.completedCount = 0
       this.addedCount = 0
       this.successCount = 0
       this.versionUploaded = false
     },
-    // close upload panel
     closeVersion() {
       if (!this.assetVersionAllowed) return
       this.version = false
@@ -2758,7 +2754,6 @@ export default {
       this.afterUpload = false
       this.reset()
     },
-    // close current upload
     closeOngoingUpload() {
       this.successUploaded = true
       this.version = false
@@ -2779,19 +2774,15 @@ export default {
               indexOfParent,
             })
             .then(() => {
-              // this.$refs.assetPermissionDialog.hide()
               this.$toast.global.success(message)
             })
         } else {
-          // this.$refs.assetPermissionDialog.hide()
           this.$toast.global.success(message)
         }
       } else {
-        // this.$refs.assetPermissionDialog.hide()
         this.$toast.global.success(message)
       }
     },
-    // permission change from dialog
     async changeSharePermission() {
       if (this.file.is_public === 1) {
         this.file.is_public = 0
@@ -2821,7 +2812,6 @@ export default {
           this.isAssetPrivacyUpdating = false
         })
     },
-    // change asset permission
     async checkAssetPermission(actionChange) {
       if (actionChange === 'permission') {
         if (!this.privacyCustomizationAllowed) return
@@ -2905,7 +2895,6 @@ export default {
         .replace(/['"]+/g, '')
       if (y !== pipFile) {
         pip.pause()
-        // document.exitPictureInPicture().catch((error) => console.log(error))
         this.$nextTick(() => {
           this.$refs.video
             .requestPictureInPicture()
@@ -3414,9 +3403,6 @@ export default {
   overflow: hidden;
 }
 
-/* .asset-detail-img img {
-  border-radius: 0 !important;
-} */
 .asset-detail-img canvas {
   width: 100%;
 }
@@ -3433,10 +3419,6 @@ export default {
   max-height: 100%;
 }
 
-/* .asset-detail-img div > div {
-  display: flex;
-  flex-direction: column-reverse;
-} */
 .cui-statusbar .cui-ctl,
 .cui-statusbar .cui-ctl-medium {
   display: none !important;

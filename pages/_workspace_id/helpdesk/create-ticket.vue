@@ -204,9 +204,9 @@
 <script>
 import { required, email } from 'vuelidate/lib/validators'
 import axios from './utils'
-import TagInput from '~/components/lead/TagInput'
+import TagInput from '~/components/TagInput'
 import Select2 from '~/components/plugins/Select2'
-import TextField from '~/components/lead/TextField.vue'
+import TextField from '~/components/TextField.vue'
 export default {
   components: {
     Select2,

@@ -1818,7 +1818,6 @@ export default {
       anchor.appendChild(icon)
     })
     this.getNotificationUserList()
-    // this.viewNotificationUser()
   },
   methods: {
     fetchSubscription() {
@@ -1829,17 +1828,6 @@ export default {
           this.subscriptionData = {}
         })
     },
-    // viewNotificationUser() {
-    //   this.$axios
-    //     .$post('digital-assets/notification/view-order-admin', {
-    //       workspace_id: this.workspace_id || this.$getWorkspaceId(),
-    //       instace_id: this.$route.params.instance_id,
-    //     })
-    //     .then(({ data }) => {
-    //       // this.selectedUser = data.order_admin_id
-    //     })
-    //     .catch(console.error)
-    // },
     updateNotificationUser() {
       this.$axios
         .$post('digital-assets/notification/add-order-admin', {
@@ -1878,15 +1866,12 @@ export default {
       const imageFile = file[0]
       if (file.length > 0) {
         if (!imageFile.type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
-        } // Max size of image is 5 MB
-        else if (imageFile.size > this.maxSize) {
+        } else if (imageFile.size > this.maxSize) {
           this.$toast.global.error(
             'Your file is too big! Please select an image under 256KB'
           )
         } else {
-          // Append file into FormData and turn file into image URL
           const img = new Image()
           img.src = URL.createObjectURL(imageFile)
           img.onload = () => {
@@ -1905,12 +1890,9 @@ export default {
       }
     },
     clear() {
-      // this.$refs.file.value = null
       this.logo = { src: null, file: null }
       this.brand = { ...this.brandOriginal }
       this.faviconName = this.oldFaviconName
-      // this.$refs.favicon.value = ''
-
       this.$nextTick(() => this.$v.$reset())
     },
     async handleSubmit() {
@@ -1932,12 +1914,7 @@ export default {
       formData.append('brand_name', this.brand.brand_name)
       formData.append('is_active', 1)
       formData.append('is_domain', this.brand.is_domain)
-      /* if (this.$refs.favicon.value) {
-        formData.append('favicon', this.brand.favicon)
-      } */
       formData.append('settings', JSON.stringify(this.brand.settings))
-      // if (this.logo.file) formData.append('logo', this.logo.file)
-      // if (this.removeLogo) formData.append('remove_logo', true)
 
       await this.$axios
         .$post('digital-assets/instance/update', formData)
@@ -1963,7 +1940,6 @@ export default {
           this.faviconName = this.brand.favicon
           this.oldFaviconName = this.brand.favicon
           this.logo = { src: null, file: null }
-          // this.$refs.favicon.value = ''
           this.brandOriginal = Object.freeze({ ...this.brand })
           this.damBranding = Object.freeze({ ...this.brand })
         })
@@ -1972,7 +1948,6 @@ export default {
       this.loading = false
     },
     async damBrandingSetting() {
-      // if (this.brandLoading || !this.themeSettingsChanged) return
       if (this.brandLoading) return
       this.brandLoading = true
 
@@ -1988,8 +1963,6 @@ export default {
       formData.append('is_active', 1)
       formData.append('is_domain', this.damBranding.is_domain)
       formData.append('settings', JSON.stringify(this.damBranding.settings))
-      // if (this.logo.file) formData.append('logo', this.logo.file)
-      //  if (this.removeLogo) formData.append('remove_logo', true)
 
       await this.$axios
         .$post('digital-assets/instance/update', formData)
@@ -2023,9 +1996,6 @@ export default {
       formData.append('is_domain', this.brandOriginal.is_domain)
       formData.append('settings', JSON.stringify(this.brandOriginal.settings))
 
-      // if (this.logo.file) formData.append('logo', this.logo.file)
-      // if (this.removeLogo) formData.append('remove_logo', true)
-
       await this.$axios
         .$post('digital-assets/instance/update', formData)
         .then(({ data, message }) => {
@@ -2053,7 +2023,6 @@ export default {
         return
       }
       if (!file.type.match('image.*')) {
-        // check whether the upload is an image
         this.$toast.global.error('Please choose an image file')
         return
       }

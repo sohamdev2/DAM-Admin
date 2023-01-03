@@ -82,8 +82,6 @@ export default {
       return process.env.STRIPE_CHECKOUT_MODE
     },
   },
-  // layout: 'outerLayout',
-  // middleware: ['guestCheck'],
   mounted() {
     if (this.STRIPE_CHECKOUT_MODE === 'custom') this.customCheckoutHandler()
   },

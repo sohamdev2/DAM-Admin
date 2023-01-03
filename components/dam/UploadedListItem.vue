@@ -202,9 +202,6 @@
 
 <script>
 import fileType from '~/mixins/fileType'
-// import MoveFolderDialog from '~/components/dam/Dialogs/MoveFolderDialog'
-// import DeleteDialog from '~/components/plugins/DeleteDialog'
-// import FileTagInput from '~/components/dam/FileTagInput'
 export default {
   components: {
     MoveFolderDialog: () => import('~/components/dam/Dialogs/MoveFolderDialog'),
@@ -229,8 +226,6 @@ export default {
         `.${this.file.file_type}`,
         ''
       ),
-
-      // ui
       deleteDialog: false,
       deleting: false,
       filePermission: this.file.is_public,
@@ -272,7 +267,6 @@ export default {
         data.target.src = require(`~/assets/img/file/general.svg`)
       }
     },
-    // change status of access
     changeStatus(accessData, e) {
       e.preventDefault()
       e.stopPropagation()

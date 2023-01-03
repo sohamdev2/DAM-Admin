@@ -142,7 +142,6 @@
 import { required, email } from 'vuelidate/lib/validators'
 export default {
   middleware: ['guestCheck'],
-  /* layout: 'outerLayout', */
   asyncData({ req }) {
     const userAgent = req?.headers['user-agent']
     const isIpad = userAgent?.match(/iPad/)
@@ -216,8 +215,6 @@ export default {
         this.$auth.user.workspace_id &&
           this.$setCurrentWorkspace(this.$auth.user.workspace_id)
 
-        // set redirects after login
-        // this.$store.commit('dam/uncategorizedAlert', 'active')
         const categoryAlert = {
           active: false,
           dismiss: false,

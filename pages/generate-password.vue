@@ -103,7 +103,6 @@ import moment from 'moment-timezone'
 
 export default {
   layout: 'outerLayout',
-  /* middleware: ['guestCheck'], */
   data() {
     return {
       loading: false,

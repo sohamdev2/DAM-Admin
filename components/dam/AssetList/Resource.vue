@@ -1938,7 +1938,6 @@
 
 <script>
 import { ContentLoader } from 'vue-content-loader'
-// import axios from 'axios'
 import fileType from '~/mixins/fileType'
 import DeleteDialog from '~/components/plugins/DeleteDialog'
 import ShareAssetDialog from '~/components/dam/Dialogs/ShareAssetDialog'
@@ -2033,7 +2032,6 @@ export default {
       }
       return x
     },
-    // inside collection route
     isCollection() {
       return this.$route.name.search('collection')
     },
@@ -2142,7 +2140,6 @@ export default {
         data.target.parentElement.classList.add('icons')
       }
     },
-    // dropdown feature
     selectFromDrop(file, type) {
       this.dropDown()
       if (type === 'share') {
@@ -2151,7 +2148,6 @@ export default {
       if (type === 'copy' && this.storageFull) return
       this.$emit('selectedDrop', file, type, 'file')
     },
-    // display of dropdown menu
     dropDown() {
       this.dropDownList = !this.dropDownList
     },
@@ -2205,18 +2201,6 @@ export default {
         return
       }
       if (!this.renameActive || this.renaming) return
-
-      // if (this.changing) {
-      //   if (this.timer) {
-      //     clearTimeout(this.timer)
-      //     this.timer = null
-      //   }
-
-      //   this.timer = setTimeout(() => this.changeFileName(), 200)
-      //   return
-      // }
-
-      // this.changing = true
       this.renaming = 1
       await this.$axios
         .$post('/digital-assets/update-with-field', {
@@ -2258,7 +2242,6 @@ export default {
           this.$toast.global.error(this.$getErrorMessage(e))
           this.fileName = this.oldName
         })
-      // this.changing = true
     },
     async deleteFile(final = this.trashMode) {
       if (this.deletingModel) return

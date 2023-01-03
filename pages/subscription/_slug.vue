@@ -245,7 +245,6 @@ export default {
       query,
       params,
     })
-    // return { slug: params.slug }
   },
   data() {
     return {
@@ -326,7 +325,6 @@ export default {
   methods: {
     validatePhone(e) {
       let isValid = true
-      // if (e.type === 'paste') isValid = true
       if (!e) return
       if (e.type === 'keyup') {
         isValid = '+0123456789'.split('').includes(e.key)
@@ -336,7 +334,6 @@ export default {
         return
       }
       this.$v.customerInfo.phone.$touch()
-      // console.log(this.$v.customerInfo.phone.$model.length)
       if (!this.$v.customerInfo.phone.$model) {
         this.invalidPhone = true
         return
@@ -380,13 +377,7 @@ export default {
         return
       }
       this.inquiryId = inquiryId
-      // if (this.STRIPE_CHECKOUT_MODE === 'prebuilt')
       return this.initPrebuiltStripe()
-      // this.paymentProcessing = true
-      // this.$router.push({
-      //   name: 'payments',
-      //   params: { ...this.customerInfo, planId: this.activeVariant.id },
-      // })
     },
     createInquiry() {
       return new Promise((resolve) => {

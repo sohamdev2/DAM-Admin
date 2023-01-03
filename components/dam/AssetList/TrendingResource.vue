@@ -1439,7 +1439,6 @@ export default {
       }
       return x
     },
-    // inside collection route
     isCollection() {
       return this.$route.name.search('collection')
     },
@@ -1546,7 +1545,6 @@ export default {
       }
       data.target.parentElement.classList.add('icons')
     },
-    // dropdown feature
     selectFromDrop(file, type) {
       this.dropDown()
       if (type === 'share') {
@@ -1555,7 +1553,6 @@ export default {
       if (type === 'copy' && this.storageFull) return
       this.$emit('selectedDrop', file, type, 'file', true)
     },
-    // display of dropdown menu
     dropDown() {
       this.dropDownList = !this.dropDownList
     },
@@ -1693,10 +1690,6 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
 }
-/* .selected-box.mode-tile .selected-box.video .preview-images {
-  margin: 2rem;
-  transform: translateX(-1rem) translateY(-1rem);
-} */
 .selected-box.mode-tile .preview-images:not(.no-image) .preview {
   background-size: contain;
 }

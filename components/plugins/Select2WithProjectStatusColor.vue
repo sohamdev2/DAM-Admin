@@ -65,7 +65,6 @@ export default {
         (option) => parseInt(option.id) === parseInt(this.value)
       )
       if (!status) {
-        // this.$emit("optionChangeHandler", 0);
         value = 0
       }
       window.$(this.$el).val(value).trigger('change')
@@ -131,7 +130,6 @@ export default {
     let value = this.value
 
     if (!status) {
-      // this.$emit("optionChangeHandler", 0);
       value = 0
     }
     window
@@ -182,7 +180,6 @@ export default {
         if (this.customEvent) {
           this.$emit('optionChangeHandler', data)
         }
-        // this.$emit("input", data.id);
       })
       .prop('disabled', this.disabled)
   },

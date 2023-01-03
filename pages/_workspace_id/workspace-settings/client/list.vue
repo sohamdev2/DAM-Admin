@@ -904,9 +904,6 @@ export default {
         return ` url(${client.display_company_logo})`
       } else {
         return `url(${this.buildingImage})`
-        /* return ` url('https://ui-avatars.com/api/?name=${encodeURI(
-          client.company_name
-        )}&size=128&background=F8F9Fa&font-size=0.7&bold=true')` */
       }
     },
     goToClientDetail(client) {
@@ -1053,7 +1050,8 @@ export default {
 .list-leave-active {
   transition: all 1s;
 }
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+.list-enter,
+.list-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }

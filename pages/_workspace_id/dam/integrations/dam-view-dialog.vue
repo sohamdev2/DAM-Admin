@@ -129,10 +129,6 @@ export default {
       this.$dialog.modal(this.model ? 'show' : 'hide')
     },
     show() {
-      // console.log(
-      //   $(this.$el).find('.choose-collection').hasClass('show'),
-      //   $(this.$el).find('.save-collection').hasClass('show')
-      // )
       this.$dialog.modal('show')
     },
     hide() {

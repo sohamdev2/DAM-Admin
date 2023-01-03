@@ -52,7 +52,6 @@ export default {
 
       const toRemove = has.filter((e) => !newValues.includes(e))
       toRemove.forEach((tag) => this.removeTag({ tag_name: tag, id: tag }))
-      // console.log({ toRemove, toAdd, has })
     },
     disabled(a) {
       window

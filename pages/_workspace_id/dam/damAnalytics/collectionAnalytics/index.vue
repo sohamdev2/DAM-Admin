@@ -401,7 +401,6 @@ import AnalyticsLeftMenu from '~/components/dam/Settings/AnalyticsLeftMenu'
 import CollectionDashboard from '~/components/dam/DamAnalytics/CollectionAnalytics/CollectionDashboard'
 import AssetsDownloadsFromCollectionName from '~/components/dam/DamAnalytics/CollectionAnalytics/AssetsDownloadsFromCollectionName'
 import AssetsSharedFromCollectionName from '~/components/dam/DamAnalytics/CollectionAnalytics/AssetsSharedFromCollectionName'
-// import AssetsViewedFromCollectionName from '~/components/dam/DamAnalytics/CollectionAnalytics/AssetsViewedFromCollectionName'
 import CollectionAssetsDetails from '~/components/dam/DamAnalytics/CollectionAnalytics/CollectionAssetsDetails'
 import CollectionByLocation from '~/components/dam/DamAnalytics/CollectionAnalytics/CollectionByLocation'
 
@@ -419,7 +418,6 @@ export default {
     AssetsDownloadsFromCollectionName,
     AssetsSharedFromCollectionName,
     CollectionByLocation,
-    // AssetsViewedFromCollectionName,
     CollectionAssetsDetails,
     Bar,
     LineGraph,
@@ -527,9 +525,7 @@ export default {
       collections = (
         await this.$axios.$get(`digital-assets/analytics/get-collection`)
       ).data
-    } catch (e) {
-      // error(e)
-    }
+    } catch (e) {}
     if (!collections?.length) {
       this.loading = false
       return this.$router.replace({
