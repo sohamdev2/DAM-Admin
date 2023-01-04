@@ -68,7 +68,9 @@
 </template>
 
 <script>
+import ValueModel from '~/mixins/ValueModel'
 export default {
+  mixins: [ValueModel],
   props: {
     headerText: { type: String, default: 'Are you sure?' },
     contentClass: { type: String, default: null },
