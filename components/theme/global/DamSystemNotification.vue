@@ -112,9 +112,7 @@
               @click="readAllNotifications"
               >Mark all as read</a
             >
-            <label
-              v-if="!initialLoading && systemNotifications.length"
-              class="label-switch small no-text"
+            <label v-if="!initialLoading" class="label-switch small no-text"
               >Only show unread.
               <input
                 v-model="showOnlyUnreadNotifications"
