@@ -569,11 +569,9 @@
 <script>
 import { isEmpty } from 'lodash'
 import { ContentLoader } from 'vue-content-loader'
-import scrolling from '~/mixins/scrolling'
 import Select2 from '~/components/plugins/Select2'
 export default {
   components: { Select2, ContentLoader },
-  mixins: [scrolling],
   layout: 'generalSettingsLayout',
   middleware: ['authCheck', 'checkWorkspace', 'can-access-dam-module'],
   data() {
@@ -637,9 +635,9 @@ export default {
           if (data.data && data.data.length) {
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.announcements.push(...data.data)
-              setTimeout(() => {
-                this.tableListScrolling()
-              }, 50)
+              // setTimeout(() => {
+              //   this.tableListScrolling()
+              // }, 50)
               $state.loaded()
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true

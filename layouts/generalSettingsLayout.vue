@@ -10,22 +10,7 @@
       <!-- Main content -->
       <div class="body-content p0">
         <div class="general-settings h-100 w-100">
-          <SettingsLeftMenu
-            v-if="
-              $auth.loggedIn &&
-              $route.name != 'workspace_id-client-settings-client_id-edit' &&
-              $route.name !=
-                'workspace_id-client-settings-client_id-contact-person' &&
-              $route.name !=
-                'workspace_id-client-settings-client_id-reset-password' &&
-              $route.name !=
-                'workspace_id-client-settings-client_id-company-client-list' &&
-              $route.name !=
-                'workspace_id-client-settings-client_id-company-client-add' &&
-              $route.name !=
-                'workspace_id-client-settings-client_id-company-client-company_client_id-edit'
-            "
-          />
+          <SettingsLeftMenu v-if="$auth.loggedIn" />
           <nuxt v-if="$auth.loggedIn" />
         </div>
       </div>

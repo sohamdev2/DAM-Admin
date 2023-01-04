@@ -908,14 +908,12 @@
 <script>
 import { ContentLoader } from 'vue-content-loader'
 import Select2 from '~/components/plugins/Select2'
-import scrolling from '~/mixins/scrolling'
 
 export default {
   components: {
     ContentLoader,
     Select2,
   },
-  mixins: [scrolling],
   layout: 'generalSettingsLayout',
   middleware: ['authCheck', 'can-access-general-settings'],
   data() {
@@ -1029,9 +1027,9 @@ export default {
           if (data.users && data.users.length) {
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.users.push(...data.users)
-              setTimeout(() => {
-                this.tableListScrolling()
-              }, 50)
+              // setTimeout(() => {
+              //   this.tableListScrolling()
+              // }, 50)
               $state.loaded()
 
               if (parseInt(this.lastPage) === parseInt(this.page)) {

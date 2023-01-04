@@ -111,7 +111,6 @@ export default {
             dataLabels: {
               enabled: true,
               format: '{point.properties.postal-code}',
-              // format: '{point.name}',
             },
             allAreas: true,
             data: [],
@@ -150,7 +149,6 @@ export default {
             dataLabels: {
               enabled: true,
               format: '{point.properties.postal-code}',
-              // format: '{point.name}',
             },
             allAreas: true,
             data: [],
@@ -160,7 +158,6 @@ export default {
       australiaHighlightChartOption: {
         ...commonMapObj,
         chart: {
-          // width: 800,
           height: 560,
           map: AUS_MAP,
         },
@@ -190,7 +187,6 @@ export default {
             dataLabels: {
               enabled: true,
               format: '{point.properties.postal-code}',
-              // format: '{point.name}',
             },
             allAreas: true,
             data: [],

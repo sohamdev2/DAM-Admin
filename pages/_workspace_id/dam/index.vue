@@ -1158,12 +1158,25 @@ import AssetOverview from '~/components/dam/AssetOverview'
 import NewFolderDialog from '~/components/dam/Dialogs/NewFolderDialog'
 import TrendingResource from '~/components/dam/AssetList/TrendingResource'
 import TrendingListingHeader from '~/components/dam/AssetList/TrendingListingHeader'
-import trendingAssetSorting from '~/mixins/trendingAssetSorting'
 import DeleteDialog from '~/components/plugins/DeleteDialog'
 import MoveFolderDialog from '~/components/dam/Dialogs/MoveFolderDialog'
 import CopyFolderDialog from '~/components/dam/Dialogs/CopyFolderDialog'
 import MoveFolderToFolderDialog from '~/components/dam/Dialogs/MoveFolderToFolderDialog'
 import switchWorkspaceDialog from '~/components/theme/switchWorkspaceDialog'
+
+const initialSortingData = () => ({
+  initialData: true,
+  files: {
+    field: 'display_file_name',
+    reverse: false,
+  },
+  subFolders: {
+    field: 'display_file_name',
+    reverse: false,
+  },
+  toolbar: { value: '', desc: false },
+  totalAssetCount: '12',
+})
 
 function makeFolder(array) {
   return [...array].map((folder) => ({
@@ -1192,7 +1205,7 @@ export default {
     switchWorkspaceDialog,
     Pie,
   },
-  mixins: [fileSelection, trendingAssetSorting],
+  mixins: [fileSelection],
   layout: 'damLayout',
   middleware: [
     'authCheck',
@@ -1202,6 +1215,7 @@ export default {
   ],
   data() {
     return {
+      sorting: initialSortingData(),
       timeFrame: [
         {
           id: 1,
@@ -1428,6 +1442,46 @@ export default {
     this.$nuxt.$off('update-overview-data')
   },
   methods: {
+    apiSortValue() {
+      return this.sorting.toolbar.value === 'Sort by'
+        ? 'updated_at'
+        : this.sorting.toolbar.value || 'updated_at'
+    },
+    apiSortOrder() {
+      const order = this.sorting.files.reverse
+      return order ? 'DESC' : 'ASC'
+    },
+    sort(path, field_name, _primer) {
+      if (!field_name) return
+
+      const primer = _primer || ((v) => v)
+      const hasPages = this.lastPage > 1
+
+      const toReverse = true
+      this.sorting[path].reverse =
+        this.sorting[path].field === field_name
+          ? !this.sorting[path].reverse
+          : toReverse
+
+      this.sorting[path].field = field_name
+
+      if (path === 'files') {
+        this.sorting.toolbar.desc = this.sorting[path].reverse
+      }
+
+      if (hasPages) {
+        if (path === 'subFolders') return
+        return this.prefetch()
+      }
+
+      this[path] = this[path].sort(
+        this.$sortBy(
+          this.sorting[path].field,
+          this.sorting[path].reverse,
+          (x) => primer(x, this.sorting[path].reverse)
+        )
+      )
+    },
     dateChangeHandler(data) {
       this.selectedTimeFrame = data.id
       const param = {}

@@ -290,7 +290,7 @@ export default {
     Select2WithImage,
   },
   layout: 'generalSettingsLayout',
-  middleware: ['authCheck', 'can-access-client-module'],
+  middleware: ['authCheck'],
   data() {
     return {
       workspace_id: this.$route.params.workspace_id
@@ -363,11 +363,9 @@ export default {
   },
   methods: {
     changeLogo(event) {
-      // const oneMB = 7000
       const twoMB = 2097152
       if (event.target.files[0]) {
         if (!event.target.files[0].type.match('image.*')) {
-          // check whether the upload is an image
           this.$toast.global.error('Please choose an image file')
           return
         }

@@ -80,11 +80,9 @@
 </template>
 <script>
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
-// import mainMixin from '@/mixins/mainMixin'
 export default {
-  // mixins: [mainMixin],
   layout: 'generalSettingsLayout',
-  middleware: ['authCheck', 'can-access-client-module'],
+  middleware: ['authCheck'],
   data() {
     return {
       form: {
@@ -103,8 +101,6 @@ export default {
     }
   },
   async mounted() {
-    // this.$setPageTitle("Reset Password", true);
-    // this.$setPageTitle('Organization Settings', false)
     try {
       const userData = await this.$axios.$post('/user/details-password', {
         user_id: this.form.user_id,

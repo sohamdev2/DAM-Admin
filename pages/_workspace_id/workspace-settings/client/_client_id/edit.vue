@@ -351,7 +351,7 @@ const checkZero = (value) => Number(value) >= 1
 export default {
   components: { ProjectNotificationAlert, Select2Multiple, Select2WithImage },
   layout: 'generalSettingsLayout',
-  middleware: ['authCheck', 'can-access-client-module'],
+  middleware: ['authCheck'],
   data() {
     return {
       loading: false,

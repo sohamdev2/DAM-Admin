@@ -71,18 +71,6 @@
           />
         </svg>
       </a>
-
-      <!-- <div class="search-more">
-
-        <a
-          class="btn btn-icon bg-light-gray search-btn"
-          :class="{ 'btn-disable': !hasFilters }"
-          :disabled="!hasFilters"
-          @click="search"
-        >
-          <img src="~/assets/img/search icon.svg" alt="search" />
-        </a>
-      </div> -->
     </form>
     <div
       v-if="
@@ -370,17 +358,11 @@
                     )
                   "
                 >
-                  <!-- {{ tag.tag_name }}Dr<strong>a</strong>wings -->
                 </label>
               </span>
             </div>
           </div>
         </div>
-        <!-- <div class="search-result-option">
-          <div class="show-more-link">
-            <a href="javascript:void(0);">Show More Tags</a>
-          </div>
-        </div> -->
       </div>
     </div>
     <client-only>
@@ -426,20 +408,6 @@
             <div class="row align-items-center">
               <div class="col-md-6">
                 <h4 class="m-0">Refine your search</h4>
-                <!-- <div
-                v-if="searchParams.search_term"
-                class="custom-checkbox"
-                style="flex: 1; margin-left: 1rem"
-              >
-                <input
-                  id="search-exact_term"
-                  type="checkbox"
-                  class="form-check-input"
-                  :checked="searchParams.exact_term"
-                  @input="ev => (searchParams.exact_term = ev.target.checked)"
-                />
-                <label for="search-exact_term">Search exact terms</label>
-              </div> -->
               </div>
               <div
                 class="col-md-6 d-flex justify-content-end align-items-center"

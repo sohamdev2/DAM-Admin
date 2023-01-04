@@ -22,18 +22,6 @@
                   {{ $toHumanlySize(item.total) }}
                 </small>
               </div>
-
-              <!-- <RadialProgressBar
-                v-if="item.total"
-                :completed-steps="item.loaded"
-                :total-steps="item.total"
-                :diameter="32"
-                :stroke-width="4"
-                :inner-stroke-width="5"
-                start-color="#ED703D"
-                stop-color="#ED703D"
-                inner-stroke-color="#EEE"
-              /> -->
               <SpinLoading />
             </div>
           </div>

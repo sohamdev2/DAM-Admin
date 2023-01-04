@@ -76,10 +76,6 @@
                   width="112.4"
                   height="112.4"
                 />
-                <!--                <rect x="0" y="7" rx="4" ry="4" width="108" height="108" />
-                <rect x="114" y="7" rx="4" ry="4" width="108" height="108" />
-                <rect x="228" y="7" rx="4" ry="4" width="108" height="108" />
-                <rect x="342" y="7" rx="4" ry="4" width="108" height="108" />-->
               </template>
             </ContentLoader>
           </div>

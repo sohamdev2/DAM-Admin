@@ -368,7 +368,6 @@
 <script>
 /* eslint-disable camelcase */
 import { ContentLoader } from 'vue-content-loader'
-import scrolling from '@/mixins/scrolling'
 import ColumnView from '~/pages/_workspace_id/dam/folders/columnView'
 import fileSelection from '~/mixins/fileSelection'
 import assetSorting from '~/mixins/assetSorting'
@@ -408,7 +407,7 @@ export default {
     MoveFolderToFolderDialog,
     ColumnView,
   },
-  mixins: [fileSelection, assetSorting, scrolling],
+  mixins: [fileSelection, assetSorting],
   layout: 'damLayout',
   middleware: [
     'authCheck',

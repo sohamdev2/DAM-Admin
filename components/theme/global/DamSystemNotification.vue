@@ -31,7 +31,6 @@
       <span v-if="displayBatchCount.show" class="count">
         {{ displayBatchCount.count_ }}
       </span>
-      <!--<span class="count">{{ $auth.user.project_badges_count }}-</span>-->
     </a>
     <div v-click-outside="onClickOutsideOfList" class="notification-body">
       <div
@@ -181,9 +180,7 @@
                         <span>{{ noti.created_date }}</span>
                       </h5>
                       <div class="path-link">
-                        <span v-if="!$_auth().user.project.isClient">{{
-                          noti.brand_name
-                        }}</span>
+                        <span>{{ noti.brand_name }}</span>
                       </div>
                     </div>
                     <button
@@ -255,9 +252,7 @@
                         <span>{{ noti.created_date }}</span>
                       </h5>
                       <div class="path-link">
-                        <span v-if="!$_auth().user.project.isClient">{{
-                          noti.brand_name
-                        }}</span>
+                        <span>{{ noti.brand_name }}</span>
                       </div>
                     </div>
                     <button
@@ -333,9 +328,7 @@
                         <span>{{ noti.created_date }}</span>
                       </h5>
                       <div class="path-link">
-                        <span v-if="!$_auth().user.project.isClient">{{
-                          noti.brand_name
-                        }}</span>
+                        <span>{{ noti.brand_name }}</span>
                       </div>
                     </div>
                     <button
@@ -541,9 +534,7 @@
                         {{ htmlToText(anno.announcements_detail.description) }}
                       </a>
                       <div class="path-link">
-                        <span v-if="!$_auth().user.project.isClient">{{
-                          anno.workspace_detail.workspace_name
-                        }}</span>
+                        <span>{{ anno.workspace_detail.workspace_name }}</span>
                         <span>{{
                           anno.announcements_detail.publisher.name
                         }}</span>
@@ -818,9 +809,7 @@ export default {
     this.$echo
       .private(`user.${this.$auth.user.id}.getUserSubscriptionChannel`)
       .listen('.GetUserSubscriptionEvent', async (e) => {
-        console.log(e)
         const { plan_assign } = e
-        console.log(plan_assign)
 
         if (plan_assign) {
           this.$auth.fetchUser()
@@ -1008,7 +997,6 @@ export default {
           }
         )
         this.unreadNotifications = data.total_unread_notification
-        console.log(data)
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
       }

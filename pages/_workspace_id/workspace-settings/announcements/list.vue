@@ -565,11 +565,9 @@
 <script>
 import { isEmpty } from 'lodash'
 import { ContentLoader } from 'vue-content-loader'
-import scrolling from '~/mixins/scrolling'
 import Select2 from '~/components/plugins/Select2'
 export default {
   components: { Select2, ContentLoader },
-  mixins: [scrolling],
   layout: 'generalSettingsLayout',
   middleware: ['authCheck', 'can-access-project-settings'],
   data() {
@@ -631,14 +629,12 @@ export default {
           this.lastPage = data.last_page
           this.show_add_announcement_btn = data.show_add_announcement_btn
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.announcements.push(...data.data)
-              setTimeout(() => {
-                this.tableListScrolling()
-              }, 50)
+              // setTimeout(() => {
+              //   this.tableListScrolling()
+              // }, 50)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()

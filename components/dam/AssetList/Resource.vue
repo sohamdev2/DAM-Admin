@@ -55,12 +55,6 @@
       <div class="categary-name tb-column">
         <div class="categary-image folder-image">
           <a href="javascript:void(0);" class="img-link">
-            <!--            <img
-              v-if="isAudio"
-              :src="previewImage"
-              alt="Folder Icon"
-              @error="errorHandle"
-            />-->
             <img
               :src="file.thumbnail_file || previewImage"
               alt="Folder Icon"

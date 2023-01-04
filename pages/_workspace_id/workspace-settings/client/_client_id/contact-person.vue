@@ -1041,7 +1041,7 @@ import Select2 from '~/components/plugins/Select2'
 export default {
   components: { ProjectNotificationAlert, Select2 },
   layout: 'generalSettingsLayout',
-  middleware: ['authCheck', 'can-access-client-module'],
+  middleware: ['authCheck'],
   data() {
     return {
       saving: false,

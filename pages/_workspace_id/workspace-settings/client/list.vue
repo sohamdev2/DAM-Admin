@@ -818,7 +818,6 @@ import { ContentLoader } from 'vue-content-loader'
 import Select2 from '@/components/plugins/Select2'
 
 import BuildingImage from '~/assets/img/icon/building-black.svg'
-import scrolling from '~/mixins/scrolling'
 import ProjectNotificationAlert from '~/components/theme/settings/ProjectNotificationAlert'
 import ExportReportToast from '~/components/theme/global/ExportReportToast'
 
@@ -829,9 +828,8 @@ export default {
     ContentLoader,
     ExportReportToast,
   },
-  mixins: [scrolling],
   layout: 'generalSettingsLayout',
-  middleware: ['authCheck', 'can-access-client-module'],
+  middleware: ['authCheck'],
   data() {
     return {
       buildingImage: BuildingImage,
@@ -933,14 +931,12 @@ export default {
           this.show_add_client_btn = data.show_add_client_btn
 
           if (data.data && data.data.length) {
-            // fix for duplicate entries
             if (parseInt(this.page) === parseInt(data.current_page)) {
               this.clients.push(...data.data)
-              setTimeout(() => {
-                this.tableListScrolling()
-              }, 50)
+              // setTimeout(() => {
+              //   this.tableListScrolling()
+              // }, 50)
               $state.loaded()
-              // fix for no item message
               if (parseInt(this.lastPage) === parseInt(this.page)) {
                 this.completelyLoaded = true
                 $state.complete()
@@ -986,7 +982,6 @@ export default {
     },
     clearSearch() {
       this.search_term = ''
-      // this.resetFilter()
     },
     sortByColumn(column) {
       this.sort_value = column
@@ -1031,7 +1026,6 @@ export default {
         this.downloadingClient = false
         this.showExportReportMessage = true
         this.exportReportMessage = message
-        // this.downloadReport(data.filename, `Report.${type}`)
       } catch (e) {
         this.$toast.error(this.$getErrorMessage(e))
         this.loading = false

@@ -66,10 +66,7 @@
 </template>
 
 <script>
-import ValueModel from '~/mixins/ValueModel'
-
 export default {
-  mixins: [ValueModel],
   props: {
     showAdd: { type: Boolean, default: false },
     addingToDam: { type: Boolean, default: false },

@@ -1,32 +1,6 @@
 <template>
   <div class="common-box-header">
-    <!-- <div v-if="trashMode" class="category-header-left"> -->
-    <!-- <h2 v-if="trashMode" class="title pl0"> -->
-    <!-- <input
-          v-if="trashMode || !!assetsCount"
-          id="toolbar-dam-select"
-          class="form-check-input"
-          type="checkbox"
-          :checked="selectedAll"
-          :disabled="deleting"
-          @input="
-            (ev) =>
-              $emit(`click:${ev.target.checked ? 'select-all' : 'select-none'}`)
-          "
-        />
-        <label
-          for="toolbar-dam-select"
-          :class="{ 'hide-select': !trashMode && !assetsCount }"
-        >
-          <span class="h2"> -->
-    <!-- Trash -->
-    <!-- </span>
-        </label> -->
-    <!-- </h2> -->
-    <!-- </div> -->
-
     <client-only>
-      <!-- <div class="category-header-right"> -->
       <div
         v-if="hashParam == 'search' && $route.params.filterItems"
         class="filter-left"
@@ -212,20 +186,8 @@
         ></nuxt-link>
         <div v-if="breadcrumbs" class="breadcrumb-links mr-3">
           <ul>
-            <!-- <li>
-                <nuxt-link
-                  :to="{
-                    name: 'workspace_id-dam',
-                    params: { workspace_id: $getWorkspaceId() },
-                  }"
-                  ><img src="@/assets/img/icon/address.svg" alt=""
-                /></nuxt-link>
-              </li> -->
             <li>&nbsp;</li>
             <li v-for="(crumb, i) in breadcrumbs" :key="i">
-              <!-- <component :is="crumb.url ? 'nuxt-link' : 'span'" :to="crumb.url">
-                {{ crumb.name }}
-              </component> -->
               <a v-if="crumb.url" @click="backFeat(crumb)"> {{ crumb.name }}</a>
               <span v-else>{{ crumb.name }}</span>
             </li>
@@ -309,25 +271,6 @@
               ></template
             >
           </li>
-          <!-- <li
-            v-if="
-              hashParam
-                ? hashParam === 'search' || isInteger || ''
-                  ? false
-                  : true
-                : false
-            "
-          >
-            <div class="search-by small-wd">
-              <Select2
-                :value="intialCount"
-                :disabled="deleting"
-                :options="assetCountOptions"
-                :attrs="{ minimumResultsForSearch: -1 }"
-                @input="emitSortAssetCount"
-              />
-            </div>
-          </li> -->
           <li v-if="assetsCount > 0">
             <div class="search-by">
               <Select2
@@ -497,7 +440,6 @@
           </li>
         </ul>
       </div>
-      <!-- </div> -->
 
       <template v-if="trashMode">
         <DeleteDialog ref="restoreDialog" @button:yes="restoreFiles">

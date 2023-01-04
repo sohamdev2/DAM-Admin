@@ -604,7 +604,6 @@
               </b>
               <b v-else>Empty Folder</b>
             </span>
-            <!-- </nuxt-link> -->
           </a>
           <div class="video-info">
             <div class="upper-info">
@@ -980,7 +979,6 @@
             </div>
           </div>
         </div>
-        <!-- </nuxt-link> -->
       </div>
 
       <div class="categary-name tb-column flex27">

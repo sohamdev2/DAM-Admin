@@ -17,7 +17,6 @@ export default {
     __compressed_preview() {
       return this.assetPreview && this.assetPreview.compress_file
     },
-    //
     isPdf() {
       return this.$isPdf(this.__file_ext)
     },

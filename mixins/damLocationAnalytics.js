@@ -27,7 +27,6 @@ const commonMapObj = {
             vue.stateChangeHandler({
               text: this.properties['woe-label'].split(',')[0],
               name: this.properties['woe-label'].split(',')[0],
-              // id: this.properties['hc-a2'],
               id: this.properties['woe-label'].split(',')[0],
             })
           },
@@ -89,8 +88,6 @@ export default {
             dataLabels: {
               enabled: true,
               format: '{point.properties.hc-a2}',
-              // format: '{point.properties.postal-code}',
-              // format: '{point.name}',
             },
             allAreas: true,
             data: [],

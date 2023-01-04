@@ -202,7 +202,6 @@
 </template>
 
 <script>
-import scrolling from '@/mixins/scrolling'
 import EmbedListingItem from '~/components/dam/EmbedListing/EmbedListingItem'
 import EmbedListingHeader from '~/components/dam/EmbedListing/EmbedListingHeader'
 import Pagination from '~/components/dam/AssetList/Pagination'
@@ -215,7 +214,6 @@ export default {
     Pagination,
     Select2,
   },
-  mixins: [scrolling],
   layout: 'damLayout',
   middleware: [
     'authCheck',
@@ -258,6 +256,11 @@ export default {
       ],
     }
   },
+  computed: {
+    assetEmbeddingAllowed() {
+      return !!this.$auth.user?.subscription_features?.asset_embedding?.enable
+    },
+  },
   watch: {
     'sorting.value'(value) {
       this.sortList(value)
@@ -275,11 +278,6 @@ export default {
         })
         this.getData()
       }
-    },
-  },
-  computed: {
-    assetEmbeddingAllowed() {
-      return !!this.$auth.user?.subscription_features?.asset_embedding?.enable
     },
   },
   methods: {
