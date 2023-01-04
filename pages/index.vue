@@ -194,7 +194,6 @@ export default {
     },
     async handleSubmit() {
       if (this.checkIfAlreadyLogin()) {
-        console.log('already logged in.')
         this.processIfAlreadyLoggedIn()
         return
       }
@@ -202,7 +201,6 @@ export default {
       if (this.$v.$invalid) {
         return false
       }
-      console.log('login with local')
       try {
         this.loading = true
         await this.$auth.loginWith('local', {
@@ -211,23 +209,11 @@ export default {
             password: this.form.password,
           },
         })
-        console.log('loggedin')
-        console.log('setting auth token')
         // set auth token globally
         this.$setAuthToken()
-        console.log('setting workspace')
         // set current workspace
         this.$auth.user.workspace_id &&
           this.$setCurrentWorkspace(this.$auth.user.workspace_id)
-
-        const categoryAlert = {
-          active: false,
-          dismiss: false,
-        }
-        localStorage.setItem(
-          `${this.$auth.user.workspace_id}`,
-          JSON.stringify(categoryAlert)
-        )
 
         this.$nextStep()
       } catch (e) {
