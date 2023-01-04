@@ -84,6 +84,7 @@ export default {
     { src: '~/plugins/vue-clipboard.js' },
     { src: '~/plugins/vue-async-computed.js' },
     { src: '~/plugins/vue-infinite-scroll.js', mode: 'client', ssr: false },
+    { src: '~/plugins/vue2-editor.js', mode: 'client', ssr: false },
     { src: '~/plugins/bus' },
     { src: '~/plugins/overlay-loader.js' },
     { src: '~/plugins/h-chart.js', ssr: false },
