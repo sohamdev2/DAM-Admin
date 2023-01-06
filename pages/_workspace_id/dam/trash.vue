@@ -5,33 +5,26 @@
       :class="[`grid-${mode}`]"
     >
       <transition name="slide-up">
-        <ToolBar
+        <TrashToolBar
           v-if="totalAssets"
           :assets-count="totalAssets"
-          :selected-all="selectedAll"
           :mode.sync="mode"
           :deleting.sync="deleting"
           :selected-count="selectedCount"
-          :sorting.sync="sorting.toolbar.value"
-          :sorting-desc="sorting.toolbar.desc"
-          trash-mode
-          @sort="(args) => args.forEach((arg) => sort(...arg))"
-          @removeAll="removeAll"
-          @click:select-all="selectAll"
-          @click:select-none="selectNone"
+          :sorting="sortBy"
+          :sorting-desc="sortDescending"
+          @sort="sort"
+          @all-removed="removeAll"
+          @all-restored="removeAll"
         />
       </transition>
 
-      <div v-if="!noData && !loading" class="search-result mb-3">
+      <div v-if="!loading" class="search-result mb-3">
         <div class="alert alert-info">
-          <!-- <button type="button" class="close" data-dismiss="alert">
-            <img src="~/assets/img/icon/close.svg" alt="" />
-          </button> -->
           Assets in trash are deleted forever after 30 days.
         </div>
       </div>
       <div class="common-box bg-gray h-auto">
-        <!-- <div class="h-auto p-10 pt0" :class="{ 'pb-0': mode === 'tile' }"> -->
         <div class="table-list-view multi-table-view category-wrapper">
           <div
             v-if="loading"
@@ -79,7 +72,7 @@
               </template>
             </ContentLoader>
           </div>
-          <div v-if="noData" key="no-data" class="no-data-found">
+          <div v-if="!totalAssets" key="no-data" class="no-data-found">
             <div class="inner w-100">
               <svg
                 id="Layer_1"
@@ -111,17 +104,16 @@
             </div>
           </div>
           <template v-else>
-            <ListingHeader
+            <TrashHeader
               v-if="!loading"
               key="header"
-              :assets-count="totalAssets"
               :selected-all="selectedAll"
               :deleting="deleting"
-              :reverse="sorting.toolbar.desc"
-              :sort-value.sync="sorting.toolbar.value"
+              :reverse="sortDescending"
+              :sort-value.sync="sortBy"
               @click:select-all="selectAll"
               @click:select-none="selectNone"
-              @sort="(args) => args.forEach((arg) => sort(...arg))"
+              @sort="sort"
             />
             <div class="customscrollbar">
               <transition-group
@@ -132,7 +124,7 @@
                 tag="ul"
               >
                 <Folder
-                  v-for="(folder, i) in subFolders"
+                  v-for="(folder, i) in folders"
                   :key="'folder-' + folder.id"
                   :folder="folder"
                   :mode="mode"
@@ -140,7 +132,9 @@
                     'transition-delay': `${(i % 12) * 30}ms !important`,
                   }"
                   trash-mode
-                  :selected="folderSelection[folder.id]"
+                  :selected="
+                    selectedFolders.map((e) => e.id).includes(folder.id)
+                  "
                   @removeMe="removeFolders"
                   @selectedDrop="dropDown"
                   @click:selected="toggleFolderSelection"
@@ -151,12 +145,12 @@
                   :file="file"
                   :style="{
                     'transition-delay': `${
-                      ((subFolders.length + i) % 12) * 30
+                      ((folders.length + i) % 12) * 30
                     }ms !important`,
                   }"
                   :mode="mode"
                   :deleting="deleting"
-                  :selected="selection[file.id]"
+                  :selected="selectedFiles.map((e) => e.id).includes(file.id)"
                   trash-mode
                   @removeMe="removeFile"
                   @selectedDrop="dropDown"
@@ -165,15 +159,7 @@
               </transition-group>
             </div>
           </template>
-
-          <Pagination
-            v-if="lastPage > 1 && !loading"
-            key="pagination"
-            :last-page="lastPage"
-            :current-page.sync="page"
-          />
         </div>
-        <!-- </div> -->
       </div>
       <DeleteDialog ref="deleteDialog" @button:yes="deleteFromDrop">
         Are you sure you want to permanently delete the selected asset?
@@ -203,15 +189,12 @@
 </template>
 
 <script>
-/* eslint-disable camelcase */
 import { ContentLoader } from 'vue-content-loader'
-import fileSelection from '~/mixins/fileSelection'
-import assetSorting from '~/mixins/assetSorting'
-import ToolBar from '~/components/dam/ToolBar'
+import TrashToolBar from '~/components/dam/TrashToolBar'
 import SelectionBar from '~/components/dam/SelectionBar'
 import Resource from '~/components/dam/AssetList/Resource'
 import Folder from '~/components/dam/AssetList/Folder'
-import ListingHeader from '~/components/dam/AssetList/ListingHeader'
+import TrashHeader from '~/components/dam/AssetList/TrashHeader'
 import DeleteDialog from '~/components/plugins/DeleteDialog'
 
 export default {
@@ -219,12 +202,11 @@ export default {
     ContentLoader,
     Folder,
     Resource,
-    ToolBar,
+    TrashToolBar,
     SelectionBar,
-    ListingHeader,
+    TrashHeader,
     DeleteDialog,
   },
-  mixins: [fileSelection, assetSorting],
   layout: 'damLayout',
   middleware: [
     'authCheck',
@@ -233,104 +215,132 @@ export default {
     'check-if-suspended',
   ],
   data() {
-    let page
-    if (this.$route.query.page) {
-      const queryPage = Number(this.$route.query.page)
-      page = isNaN(queryPage) ? 0 : queryPage
-    } else page = 1
-
     return {
       files: [],
-      subFolders: [],
-      noData: false,
+      folders: [],
       mode: 'tile', // list Style
       loading: true,
       deleting: false,
       restoring: false,
-      page,
-      lastPage: -1,
-      totalApiAssets: null,
       resource: [],
       resourceType: null,
+      selectedFiles: [],
+      selectedFolders: [],
+      sortBy: 'display_file_name',
+      sortDescending: false,
     }
   },
   computed: {
     totalAssets() {
-      return this.lastPage > 1
-        ? this.totalApiAssets
-        : this.files.length + this.subFolders.length
+      return this.files.length + this.folders.length
     },
     selectedCount() {
       return this.selectedFiles.length + this.selectedFolders.length
     },
     selectedAll() {
-      const length = this.files.length + this.subFolders.length
+      const length = this.files.length + this.folders.length
       return !!length && this.selectedCount === length
     },
   },
-  watch: {
-    page(page) {
-      if (page === -1) this.$router.replace({ query: null })
-      else {
-        this.$router.replace({ query: { page } })
-        this.getData()
-      }
-    },
-  },
   mounted() {
-    this.getData()
+    this.fetchTrashItems()
   },
   methods: {
-    toggleFolderSelection(folder) {
-      if (
-        folder.parent_id === parseInt(this.hashParam) ||
-        (folder.parent_id === null && isNaN(parseInt(this.hashParam)))
-      ) {
-        this.currentFolder = true
+    toggleSelection(file) {
+      const index = this.selectedFiles.findIndex(({ id }) => file.id === id)
+      if (~index) {
+        this.selectedFiles.splice(index, 1)
       } else {
-        this.currentFolder = false
+        this.selectedFiles.push(file)
       }
+    },
+    toggleFolderSelection(folder) {
       const index = this.selectedFolders.findIndex(({ id }) => folder.id === id)
       if (~index) {
         this.selectedFolders.splice(index, 1)
       } else {
         this.selectedFolders.push(folder)
       }
-
-      if (this.selectedFolders.length === 0) {
-        this.parentOfselected = null
-      } else {
-        this.parentOfselected = folder.parent_id
-      }
     },
-    dropDown(file, type, resourceType) {
-      this.resourceType = resourceType
-      this.resource = [file]
-      if (type === 'delete') {
-        this.$refs.deleteDialog.show()
-      } else if (type === 'restore') {
-        this.$refs.restoreDialog.show()
-      }
+    removeAll() {
+      this.files = []
+      this.folders = []
+      this.selectedFiles = []
+      this.selectedFolders = []
+      this.loading = false
+      this.deleting = false
+      this.restoring = false
+    },
+    selectAll() {
+      this.selectedFiles = [...this.files]
+      this.selectedFolders = [...this.folders]
+    },
+    removeSelectedFiles() {
+      const fileIds = this.selectedFiles.map(({ id }) => id)
+      this.files = this.files.filter(({ id }) => !fileIds.includes(id))
+      this.selectedFiles = []
+    },
+    removeFile(...files) {
+      const fileIds = files.map(({ id }) => id)
+      this.files = this.files.filter(({ id }) => !fileIds.includes(id))
+      this.selectedFiles = this.selectedFiles.filter(
+        ({ id }) => !fileIds.includes(id)
+      )
+    },
+    removeFolders(...folders) {
+      const folderIds = folders.map(({ id }) => id)
+      this.folders = this.folders.filter(({ id }) => !folderIds.includes(id))
+      this.selectedFolders = this.selectedFolders.filter(
+        ({ id }) => !folderIds.includes(id)
+      )
+    },
+    selectNone() {
+      this.selectedFiles = []
+      this.selectedFolders = []
+    },
+    fetchTrashItems() {
+      this.folders = []
+      this.files = []
+      this.loading = true
+      return this.$axios
+        .$get(
+          'digital-assets/category/get-deleted-category-with-files?' +
+            this.$toQueryString({
+              workspace_id: this.$getWorkspaceId(),
+            })
+        )
+        .then(({ data: { categories, assets } }) => {
+          this.folders = (categories || []).map((folder) => ({
+            ...folder,
+            total_contain:
+              (folder.total_assets || 0) + (folder.sub_category_count || 0),
+          }))
+          this.files = assets || []
+        })
+        .catch((e) => {
+          this.$toast.global.error(this.$getErrorMessage(e))
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     deleteFromDrop() {
-      const folders = this.resourceType === 'folder' ? this.resource : []
-      const files = this.resourceType === 'file' ? this.resource : []
+      if (!this.resource?.length) return
       this.deleting = true
+      const category_ids =
+        this.resourceType === 'folder' ? [this.resource[0].id] : []
+      const assets_ids =
+        this.resourceType === 'file' ? [this.resource[0].id] : []
       this.$axios
         .$post('digital-assets/category/permanent-delete-category-with-files', {
           workspace_id: this.$getWorkspaceId(),
-          category_ids: folders.map((e) => e.id),
-          assets_ids: files.map((e) => e.id),
+          category_ids,
+          assets_ids,
         })
         .then(({ message }) => {
           if (message) this.$toast.global.success(message)
-
-          folders.forEach((folder) =>
-            this.$store.dispatch('dam/removeFolderFromList', folder)
-          )
-
           this.$nextTick(() => {
-            this.subFolders = this.subFolders.filter(
+            this.folders = this.folders.filter(
               (e) => e.id !== this.resource[0].id
             )
             this.files = this.files.filter((e) => e.id !== this.resource[0].id)
@@ -349,36 +359,33 @@ export default {
         })
     },
     restoreFromDrop() {
+      if (!this.resource?.length) return
       this.restoring = true
-      const folder = this.resourceType === 'folder' ? this.resource[0] : null
-      const file = this.resourceType === 'file' ? this.resource[0] : null
+      const category_ids =
+        this.resourceType === 'folder' ? [this.resource[0].id] : []
+      const assets_ids =
+        this.resourceType === 'file' ? [this.resource[0].id] : []
       this.$axios
         .$post('digital-assets/category/restore-deleted-category-with-files', {
           workspace_id: this.$getWorkspaceId(),
-          category_ids: folder ? [folder.id] : [],
-          assets_ids: file ? [file.id] : [],
+          category_ids,
+          assets_ids,
         })
         .then(({ message }) => {
           if (message) this.$toast.global.success(message)
-
-          if (folder) this.$store.dispatch('dam/removeFolderFromList', folder)
-
           this.$nextTick(() => {
-            if (file) {
-              this.files = this.files.filter(({ id }) => id !== file.id)
-              this.selectedFiles = this.selectedFiles.filter(
-                ({ id }) => id !== file.id
-              )
-            }
-            if (folder) {
-              this.subFolders = this.subFolders.filter(
-                ({ id }) => id !== folder.id
-              )
-              this.selectedFolders = this.selectedFolders.filter(
-                ({ id }) => id !== folder.id
-              )
-            }
-            this.resource = []
+            this.files = this.files.filter(
+              ({ id }) => id !== this.resource[0].id
+            )
+            this.selectedFiles = this.selectedFiles.filter(
+              ({ id }) => id !== this.resource[0].id
+            )
+            this.folders = this.folders.filter(
+              ({ id }) => id !== this.resource[0].id
+            )
+            this.selectedFolders = this.selectedFolders.filter(
+              ({ id }) => id !== this.resource[0].id
+            )
             this.restoring = false
           })
         })
@@ -387,19 +394,54 @@ export default {
           this.$toast.global.error(this.$getErrorMessage(e))
         })
     },
-    prefetch() {
-      this.totalApiAssets = null
-      this.page = 1
-      this.lastPage = -1
-      this.deleting = false
-      this.getData()
+    sort(args) {
+      const sortBy = args.sortBy || this.sortBy
+      switch (sortBy) {
+        case 'display_file_name':
+          this.folders = this.folders.sort(
+            this.$sortBy('folder_name', !!args.descending, null, true)
+          )
+          this.files = this.files.sort(
+            this.$sortBy('display_file_name', !!args.descending, null, true)
+          )
+          break
+        case 'updated_at':
+          this.folders = this.folders.sort(
+            this.$sortBy('updated_at', !!args.descending, null, true)
+          )
+          this.files = this.files.sort(
+            this.$sortBy('updated_at', !!args.descending, null, true)
+          )
+          break
+        case 'file_size':
+          this.folders = this.folders.sort(
+            this.$sortBy('total_contain', !!args.descending)
+          )
+          this.files = this.files.sort(
+            this.$sortBy('file_size', !!args.descending)
+          )
+          break
+        case 'file_type':
+          this.folders = this.folders.sort(
+            this.$sortBy('total_contain', !!args.descending, null, true)
+          )
+          this.files = this.files.sort(
+            this.$sortBy('file_type', !!args.descending, null, true)
+          )
+          break
+      }
+      this.sortBy = sortBy
+      this.sortDescending = args.descending
     },
-    selectAll() {
-      this.selectedFiles = [...this.files]
-      this.selectedFolders = [...this.subFolders]
-    },
-    removeAll() {
-      this.prefetch()
+    // ============ TODO ================
+    dropDown(file, type, resourceType) {
+      this.resourceType = resourceType
+      this.resource = [file]
+      if (type === 'delete') {
+        this.$refs.deleteDialog.show()
+      } else if (type === 'restore') {
+        this.$refs.restoreDialog.show()
+      }
     },
     removeSelectedAll(selectionOption, resourceTypes = []) {
       let selectedFile = null
@@ -421,9 +463,7 @@ export default {
       this.files = this.files.filter(({ id }) => !fileIds.includes(id))
 
       const folderIds = selectedFolder.map(({ id }) => id)
-      this.subFolders = this.subFolders.filter(
-        ({ id }) => !folderIds.includes(id)
-      )
+      this.folders = this.folders.filter(({ id }) => !folderIds.includes(id))
 
       const file_ids = this.selectedFiles.map(({ id }) => id)
       this.files = this.files.filter(({ id }) => !file_ids.includes(id))
@@ -431,83 +471,10 @@ export default {
         ({ id }) => !file_ids.includes(id)
       )
       const folder_ids = this.selectedFolders.map(({ id }) => id)
-      this.subFolders = this.subFolders.filter(
-        ({ id }) => !folder_ids.includes(id)
-      )
+      this.folders = this.folders.filter(({ id }) => !folder_ids.includes(id))
       this.selectedFolders = this.selectedFolders.filter(
         ({ id }) => !folder_ids.includes(id)
       )
-
-      this.noData = !this.files.length && !this.subFolders.length
-    },
-    removeSelectedFiles() {
-      const fileIds = this.selectedFiles.map(({ id }) => id)
-      this.files = this.files.filter(({ id }) => !fileIds.includes(id))
-      this.selectedFiles = []
-
-      this.noData = !this.files.length && !this.subFolders.length
-    },
-    removeFile(...files) {
-      const fileIds = files.map(({ id }) => id)
-      this.files = this.files.filter(({ id }) => !fileIds.includes(id))
-      this.selectedFiles = this.selectedFiles.filter(
-        ({ id }) => !fileIds.includes(id)
-      )
-
-      this.noData = !this.files.length && !this.subFolders.length
-    },
-    removeFolders(...folders) {
-      const folderIds = folders.map(({ id }) => id)
-      this.subFolders = this.subFolders.filter(
-        ({ id }) => !folderIds.includes(id)
-      )
-      this.selectedFolders = this.selectedFolders.filter(
-        ({ id }) => !folderIds.includes(id)
-      )
-
-      this.noData = !this.files.length && !this.subFolders.length
-    },
-    async getData() {
-      this.loading = true
-      this.noData = false
-      this.subFolders = []
-      this.files = []
-      this.selectNone()
-
-      await this.getDeletedItems()
-
-      this.noData = !this.files.length && !this.subFolders.length
-
-      this.loading = false
-    },
-    async getDeletedItems() {
-      const body = {
-        workspace_id: this.$getWorkspaceId(),
-      }
-
-      await this.$axios
-        .$get(
-          'digital-assets/category/get-deleted-category-with-files?' +
-            this.$toQueryString(body)
-        )
-        .then(({ data: { categories, assets } }) => {
-          this.subFolders = (categories || []).map((folder) => ({
-            ...folder,
-            total_contain:
-              (folder.total_assets || 0) + (folder.sub_category_count || 0),
-          }))
-          this.files = assets || []
-        })
-        .catch((e) => {
-          const message = this.$getErrorMessage(e)
-          if (message === 'Category not found')
-            return this.$router.replace({
-              name: 'workspace_id-asset-manager-folders',
-              params: { workspace_id: this.$getWorkspaceId() },
-            })
-
-          this.$errorToast(message)
-        })
     },
   },
 }
